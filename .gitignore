@@ -1,0 +1,20 @@
+## --- Fichiers système macOS ---
+.DS_Store
+
+## --- Fichiers temporaires LaTeX (Le "bruit") ---
+*.aux
+*.log
+*.toc
+*.out
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.blg
+*.bbl
+
+## --- Fichiers Obsidian ---
+.obsidian/workspace.json
+.obsidian/graph.json

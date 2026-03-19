@@ -1,0 +1,58 @@
+\documentclass[12pt, a4paper, french]{report}
+
+% --- PACKAGES DE BASE ---
+\usepackage[utf8]{inputenc}       % Encodage (standard)
+\usepackage[T1]{fontenc}          % Polices de sortie
+\usepackage[french]{babel}        % Langue française (guillemets, césure)
+\usepackage{lmodern}              % Police plus lisible
+\usepackage{microtype}            % Améliore l'apparence visuelle du texte
+
+% --- PACKAGES MATHÉMATIQUES (Indispensables) ---
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % La base du LaTeX mathématique
+\usepackage{mathtools}             % Extensions pour amsmath
+\usepackage{mathrsfs}              % Lettres calligraphiques (\mathscr{L})
+\usepackage{bm}                    % Symboles en gras (\bm{x})
+
+% --- CONFIGURATION DES THÉORÈMES ---
+\newtheorem{theorem}{Théorème}[chapter]
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollaire}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Définition}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{remark}[theorem]{Remarque}
+
+% --- MISE EN PAGE ---
+\usepackage[margin=2.5cm]{geometry} % Marges
+\usepackage{hyperref}               % Liens cliquables (sommaire, citations)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% --- TES MACROS (Raccourcis) ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\diff}{\mathrm{d}}     % Pour un joli 'd' de différentielle
+
+% --- INFOS DU MÉMOIRE ---
+\title{Titre de ton Mémoire de Recherche}
+\author{Gabriel de Boisgrollier}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+% --- INCLUSION DES CHAPITRES ---
+% Git va adorer cette séparation par fichiers !
+\include{chapitres/intro}
+Hello world 
+
+% --- BIBLIOGRAPHIE ---
+% \bibliographystyle{alpha}
+% \bibliography{biblio.bib}
+
+\end{document}
