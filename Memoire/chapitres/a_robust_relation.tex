@@ -1,0 +1,55 @@
+We established that :
+\begin{equation}
+    \partial^{\mn} (\delta \Pi - d \Gamma^*_x \Pi_x)(x)=0 \quad \text{for }\vert \mn \vert < 2+s.
+    \label{eq:coeff_fonction_de_malliavin}
+\end{equation}
+We will see how this specifies uniquely the coefficients $\dG$. 
+Indeed, by definition, 
+$$
+\dG \coloneqq \sum_{\abs{\mn} < 2+s} \dd \pi^{(n)}_x \G_x
+\partial_{z_\mn}.$$
+And as $$\partial_{z_\mn} z_{\mathbf{m}} = \delta_{\mn, \mathbf{m}},$$
+It follows that $$\forall \mathbf{m}, \abs{\mathbf{m}}\geq 2+s, \dG z_m = 0.$$
+Additionnaly, $\dG$ behaves like a derivation :
+\begin{empheq}[left=\empheqlbrace]{align*}
+    &\dG \pi \pi' = (\dG \pi)(\G_x \pi')+(\G_x \pi)(\dG \pi'), \\
+    &\dG 1 = 0, \\
+    &\dG \mathbf{z}_3 = 0.
+\end{empheq}
+This follows directly from the behaviour of $\partial_{\mathbf{z}_n}$ which is a derivation, and $\G_x$ which is an algebra morphism.
+As a consequence, together with its finiteness property, $\dG$ is determined by its values on the finitely many coordinates $\{\mathbf{z}_n\}_{\abs{\mn}<2+s}$.
+
+Knowing $\delta \Pi$ and \eqref{eq:coeff_fonction_de_malliavin}, we actually know $\dG \partial^{\mn}\Pi_x(x)$ for all $\mn$ such that $\abs{\mn}<2+s$.
+We also know this fact about the jet:
+\begin{equation}
+    \frac{1}{\mn !}\partial^{\mn}\Pi_x(x) - \mathbf{z}_{\mn} \in \R[[\mathbf{z}_3, \{\mathbf{z_\mathbf{m}}\}_{\abs{\mathbf{m}}<\abs{\mn}}]].
+    \label{eq:jet}
+\end{equation}
+Now, an induction argument shows that we thus know $\dG \mathbf{z}_n$ for all $\mn$ such that $\abs{\mn}<2+s$.
+\begin{proof}
+The base case is is clear because $\Pi_x(x) - \mathbf{z}_{\mathbf{0}} \in \R[[\mathbf{z}_3]]$ and $\dG \mathbf{z}_3 = 0$ so 
+$$\dG \mathbf{z}_{\mathbf{0}}=\dG \Pi_x(x).$$
+Now let $k\in \N$, $k<2+s$ be such that we know $\dG \mathbf{z}_{\mathbf{m}}$ for all $\mathbf{m}$ such that $\abs{\mathbf{m}}<k$.
+For all $\mn$ with $\abs{\mn} = k$, \eqref{eq:jet} shows that $\dG \mathbf{z}_{\mathbf{n}}$ is a function of $\dG \partial^{\mn}\Pi_x(x)$ and some $\dG \mathbf{z}_{\mathbf{m}}$ with $\abs{\mathbf{m}}<k$, which are known by hypothesis.
+
+\end{proof}
+
+This will be useful to explicit a robust relation  $\delta \Pi\longrightarrow \delta \Pi ^-$. By robust we mean that the map doesn't rely on diverging constant such as $c$, like if we used the first definition of $\delta \Pi ^-$ : 
+$$\delta \Pi ^- \coloneq (3\z{3}\Pi^2 +c)\delta \Pi + \delta \xi_\rho \mathbf{1}.$$
+We claim that : 
+\begin{equation}
+    (\delta \Pi ^- - \delta \xi_\rho \mathbf{1} - \dG \Pi_x^-)(x)=0
+\end{equation} 
+\begin{proof}
+    Let's work out $\dG \Pi_x^- (x)$ :
+    \begin{align*}
+        \dG \Pi_x^- (x) &= \dG (\z{3}\Pi_x^3 + c\Pi_x + \xi_\rho \mathbf{1})(x) \\
+        &= ((\G_x \z{3}) (\dG \Pi_x^3) + (\G_x c) (\dG \Pi_x) + \dG \xi_\rho \mathbf{1})(x) \quad \text{(derivation properties)}\\
+        &= (3\z{3} (\dG \Pi_x) (\G_x \Pi_x^2) + c \, \dG \Pi_x)(x) \quad \text{(same properties, and } \G_x c = c, \G_x \z{3} = \z{3}) \\
+        &= (3\z{3} \Pi^2 + c)(\dG \Pi_x)(x) \quad (\text{because } \G_x \Pi_x = \Pi) \\
+        &= (3\z{3} \Pi^2 + c)(\delta \Pi)(x) \quad (\text{by \eqref{eq:jet} for }\mn = \mathbf{0})\\
+        &= (\delta \Pi^- - \delta \xi_\rho)(x) \quad (\text{by definition of } \delta \Pi^-)
+    \end{align*}
+\end{proof}
+The calculation is easier in this direction altough we are truely going in the opposite direction.
+The success of our approach may be due to the fact that we use an approximation of $\delta \Pi$ at each $x$ with the germ $\dG \Pi_x$, as opposed to only utilizing $\Pi_0; \Pi_0^-$.
