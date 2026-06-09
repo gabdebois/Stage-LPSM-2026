@@ -15,7 +15,7 @@ Additionnaly, $\dG$ behaves like a derivation :
     &\dG \pi \pi' = (\dG \pi)(\G_x \pi')+(\G_x \pi)(\dG \pi'), \\
     &\dG 1 = 0, \\
     &\dG \mathbf{z}_3 = 0.
-\end{empheq}
+\end{empheq} 
 This follows directly from the behaviour of $\partial_{\mathbf{z}_n}$ which is a derivation, and $\G_x$ which is an algebra morphism.
 As a consequence, together with its finiteness property, $\dG$ is determined by its values on the finitely many coordinates $\{\mathbf{z}_n\}_{\abs{\mn}<2+s}$.
 
@@ -39,6 +39,7 @@ $$\delta \Pi ^- \coloneq (3\z{3}\Pi^2 +c)\delta \Pi + \delta \xi_\rho \mathbf{1}
 We claim that : 
 \begin{equation}
     (\delta \Pi ^- - \delta \xi_\rho \mathbf{1} - \dG \Pi_x^-)(x)=0
+    \label{eq:qualitative_reconstruction}
 \end{equation} 
 \begin{proof}
     Let's work out $\dG \Pi_x^- (x)$ :
@@ -53,3 +54,6 @@ We claim that :
 \end{proof}
 The calculation is easier in this direction altough we are truely going in the opposite direction.
 The success of our approach may be due to the fact that we use an approximation of $\delta \Pi$ at each $x$ with the germ $\dG \Pi_x$, as opposed to only utilizing $\Pi_0; \Pi_0^-$.
+
+Equation \eqref{eq:qualitative_reconstruction} will give us the qualitative result we need to quantitatively reconstruct $\delta \Pi^-$ from the germ $\dG \Pi_x^-$ (see section 3.2 of \cite{BOT_2024}). 
+We also see the main induction argument coming : from $\delta \Pi$ we get this relation, and we will integrate the estimate we obtain on $\delta \Pi^-$ to get an estimate on $\delta \Pi$.

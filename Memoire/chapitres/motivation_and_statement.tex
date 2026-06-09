@@ -1,0 +1,62 @@
+
+The goal is to prove convergence of the model in the forme of the following estimates :
+
+\begin{align}
+    \mathbb{E}^{\frac{1}{p}} \abs{\Pi_{x\beta r}(x)}^p & \lesssim r ^{\abs{\beta}}, \label{eq:estimate_Pix} \\
+    \mathbb{E}^{\frac{1}{p}} \abs{\Pi^{-}_{x\beta r}(x)}^p & \lesssim r ^{\abs{\beta}-2}, \\
+    \mathbb{E}^{\frac{1}{p}} \abs{(\G_x)_\beta^\gamma}^p & \lesssim r ^{\abs{\beta}- \abs{\gamma}} \quad \text{for all populated }\gamma. \label{eq:estimate_Gx}
+\end{align}
+The first two estimates are homogeneity estimates on the germs $\Pi_x$ and $\Pi_x^-$, and together with the last one, we also get a coherence estimate on these two germs.
+\begin{align}
+    \mathbb{E}^{\frac{1}{p}} \abs{(\Pi_{x+y\beta} - \Pi_{x\beta})_r(x)}^p \lesssim r^{\alpha}(r+\abs{y})^{\abs{\beta}-\alpha}, \label{eq:estimate_Pi} \\
+    \mathbb{E}^{\frac{1}{p}} \abs{\Pi^-_{\beta r}(x)}^p \lesssim r^{3\alpha}(r+\abs{x})^{\abs{\beta}-2-3\alpha}, \quad \text{provided } \beta \neq 0.
+\end{align}
+This estimate gives us useful insight : the increments $\Pi_{x+y\beta} - \Pi_{x\beta}$ have local regularity $\alpha$ (which is negative) at an arbitrary point, but vanishes at the order $\abs{\beta}$ when $y$ goes to $0$. Finally, at infinity, they grow at order $\abs{\beta}-\alpha$.
+
+\proof{Proof of \eqref{eq:estimate_Pi}}
+We know that $\Pi_{x+y\beta} - \Pi_{x\beta} =(\G_y - id) \Pi_{x\beta} = \sum_{\gamma} (\G_y - id)^{\gamma}_{\beta} \Pi_{x\gamma}$. We apply the mollification operator $(\cdot)_r$ and evaluate at $x$. Using the triangle inequality with respect to the norm $\mathbb{E}^{\frac{1}{p}} \abs{\cdot}^p$, and then Hölder's inequality, we get :
+\begin{equation}
+    \mathbb{E}^{\frac{1}{p}} \abs{(\Pi_{x+y\beta}-\Pi_{x\beta})_r(x)}^p \lesssim \sum_{\gamma} \mathbb{E}^{\frac{1}{2p}} \abs{(\G_{x}-id)_{\gamma}^{\beta}}^{2p} \mathbb{E}^{\frac{1}{2p}} \abs{\Pi_{x\gamma r}(x)}^{2p}.
+\end{equation}
+
+Now appealing to $\abs{\gamma}\geq \abs{\beta} \implies(\G_{x}-id)^{\gamma}_{\beta}=0$ to restrict the sum and get rid of $id$, and estimates \eqref{eq:estimate_Pix} and \eqref{eq:estimate_Gx}, we get :
+\begin{equation}
+    \mathbb{E}^{\frac{1}{p}} \abs{(\Pi_{x+y\beta}-\Pi_{x\beta})_r(x)}^p \lesssim \sum_{\abs{\gamma}\leq \abs{\beta}} \abs{y}^{\abs{\beta}-\abs{\gamma}} r^{\abs{\gamma}}. 
+\end{equation}
+We also know that $\abs{\gamma} \geq \alpha$ for all populated $\gamma$ (see (62) in \cite{BOT_2024}, $\alpha$ is the roughest regularity of the model, it is the regularity of $\Pi_0$), so we can restrict the sum to $\abs{\gamma} \geq \alpha$.
+Factorizing by $r^{\alpha}$, and using a binomial expansion, we get \eqref{eq:estimate_Pi}.
+\endproof
+The proof for $\Pi^-$ is analog.
+
+We are not trying to apply a reconstruction theorem here, but coherence and homogeneity are the two relevant metrics to measure germs of distributions.
+In order to prove these estimates, we will first prove similar estimates on $\delta \Pi$ and $\delta \Pi^-$, which are the Malliavin derivatives of $\Pi$ and $\Pi^-$ with respect to the noise $\xi$, or rather on their germs $\dG \Pi_x$ and $\dG \Pi^-_x$ (cf section 2.6 from \cite{BOT_2024} to see why these are the right germs). We will take advantage of the fact that $\delta \Pi$ and $\delta \Pi^-$ are related by a robust relation, and that they are more regular, by a order $\frac{D}{2}$.
+The shape of the estimate will be slighty different as we are going to take a local $L^2$ norm in $x$ instead of an $L^\infty$ norm.
+We will thus try to prove the following estimates :
+
+\begin{equation}
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}} \abs{\sum_{\abs{\gamma}\geq 2+s}(\dG)^\gamma_\beta \Pi^-_{x\gamma r}(x)}^q)^\frac{1}{2} \lesssim r^{\alpha - 2 + \frac{D}{2}}(r+R)^{\abs{\beta} - \alpha} \quad \text{(homogeneity)}\\
+\end{equation}  
+\begin{multline}  
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}} \abs{(\dGb_{x+y} \Pi^-_{x+y} - \dGb_{x} \Pi^-_{x})_{\beta r}(x+y)}^q)^{\frac{1}{2}}\\
+    \lesssim r^{2\alpha}(r+\abs{y})^{\alpha + \frac{D}{2}}(\abs{y}+r+R)^{\abs{\beta}-2-3\alpha} \quad \text{(coherence)}
+\end{multline}
+
+and
+\begin{equation}
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}} \abs{\sum_{\abs{\gamma}\geq 2+s}(\dG)^\gamma_\beta \Pi_{x\gamma r}(x)}^q)^\frac{1}{2} \lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta} - \alpha} \quad \text{(homogeneity)}\\
+\end{equation} 
+
+This will allow us to prove by reconstruction that : 
+\begin{equation}
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi^- - \dGb_{x} \Pi^-_{x})_{\beta r}(x)}^q)^{\frac{1}{2}} \lesssim r^{3\alpha + \frac{D}{2}}(r+R)^{\abs{\beta}-2-3\alpha}
+\end{equation}
+
+And we won't need a coherence estimate for $\dG \Pi_x$ as we will directly deduce a reconstruction bound by integration of the one we get for $\delta \Pi^-$ : 
+
+\begin{equation}
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi - \dGb_{x} \Pi_{x})_{\beta r}(x)}^q)^{\frac{1}{2}} \lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta}-\alpha}
+\end{equation}
+
+What is cructial here is the exponent $3\alpha + \frac{D}{2}$, in the coherence estimate of $\dG \Pi^-_x$ and in the reconstruction bound for $\delta \Pi^-$. It indeed plays the role of $\gamma$ in the reconstruction theorem presented in \cite{broux2023besov}, and is positive by assumption in \cite{BOT_2024}. Because of this, the reconstuction theorem ensures uniqueness of the reconstruction $\delta \Pi^-$.
+The same goes for $\delta \Pi$ with the exponent $\alpha + \frac{D}{2}$ which is even more positive as $\alpha < 0$.  
+This cascades down to show that our model is uniquely caracterized.
