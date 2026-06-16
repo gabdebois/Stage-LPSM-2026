@@ -1,0 +1,116 @@
+\section{Reconstruction of $\dG \Pi^-_x$}
+
+\begin{proof}[Proof of \eqref{eq:reconstruction_dPi-}]
+    For convenience, denote $F_x \coloneq (\dG \Pi^-_x)_{\beta}$ and introduce the diagonal evaluation for this germ : $(EF)(x) = F_x (x).$
+    We are going to prove,
+    \begin{equation}
+        \big(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}} \abs{(EF_\tau - F_{x\tau})_{T-\tau}(x)}^q)^{\frac{1}{2}} \lesssim (\sqrt[4]{T})^{3\alpha + \frac{D}{2}}(\sqrt[4]{T} + R)^{\abs{\beta}-2-3\alpha}, \label{eq:diagrec}
+    \end{equation}
+    because from \eqref{eq:qualitative_reconstruction}, we have the qualitative : $\delta \Pi^-_\beta (x)= \lim_{\tau \rightarrow 0} (\dG \Pi^-_x)_{\beta \tau}(x) = \lim_{\tau \rightarrow 0} EF_\tau (x),$ so taking the limit $\tau \rightarrow 0$, we hope to recover the targeted estimate.
+
+    Let $n\in \mathbb{N}$ and $\tau = 2^{-n}T.$
+    Then, we can write
+    \begin{align*}
+        (EF_\tau - F_{x\tau})_{T-\tau}(x) &= (EF_\tau)_{T-\tau} - (EF_{2\tau})_{T - 2\tau} \\
+        & +(EF_{2\tau})_{T-2\tau} - (EF_{4\tau})_{T - 2\tau}\\
+        & +(EF_{4\tau})_{T-4\tau} - (EF_{8\tau})_{T - 8\tau} + \dots \\
+        & +(EF_{\frac{T}{2}})_{\frac{T}{2}} -EF_T (x)\\
+        & = \sum_{k=0}^{n-1} (EF_{2^{k-n}T})_{(1-2^{k-n})T} - (EF_{2^{k+1-n}T})_{(1-2^{k+1-n})T}
+    \end{align*}
+    Let $t= 2^{k-n}T$, we then have to estimate $(EF_t)_{T-t} - (EF_{2t})_{T-2t} = ((EF_t)_t - EF_{2t})_{T-2t}$ (semi-group property).
+    \begin{align*}
+        ((EF_t)_t - EF_{2t})_{T-2t}(x) &= \int \dd y \, \psi_{T-2t}(y) ((EF_t)_t - EF_{2t})(x-y)\\
+        &= \int \dd y \, \psi_{T-2t}(y) ((EF_t)_t - F_{x-y 2t})(x-y)\\
+        &= \int \dd y \, \psi_{T-2t}(y) ((EF_t) - F_{x-yt})_t(x-y) \\
+        &= \int \dd y \, \psi_{T-2t}(y) \int \dd y' \psi_t(y') ((EF_t) - F_{x-y t})(x-y-y')\\
+        &= \int \dd y \, \psi_{T-2t}(y) \int \dd y' \psi_t(y') (F_{x-y-y' t} - F_{x-y t})(x-y-y')\\
+    \end{align*}
+    We see the increments of the germ $\dG \Pi^-_x$ appearing.
+    Using the fact that $\int_{B_R} \dd x f^2(x+y) \leq \int_{B_{R+\abs{y}}} \dd x' f^2(x')$, we have 
+    \begin{equation}
+        (\int_{B_R} \dd x \mathbb{E}^\frac{2}{q} \abs{(F_{x-y-y' t} - F_{x-y t})(x-y-y')}^q)^\frac{1}{2} \lesssim (\int_{B_{R+\abs{y}}} \dd x \mathbb{E}^\frac{2}{q} \abs{(F_{x-y' t} - F_{x t})(x-y')}^q)^\frac{1}{2}
+    \end{equation}
+    And the r.h.s is estimated by \eqref{eq:coherencedGPi} with $(\sqrt[4]{t},-y', R+\abs{y})$ playing the role of $(r,y,R)$.
+    
+    Thus, by triangle inequality, we have :
+    \begin{multline}
+        (\int_{B_R} \dd x \mathbb{E}^\frac{2}{q} \abs{((EF_t)_t - EF_{2t})_{T-2t}(x)}^q)^\frac{1}{2} \\
+         \lesssim (\sqrt[4]{t})^{2\alpha} \int \dd y \, \abs{\psi_{T-2t}(y)} \int \dd y' \abs{\psi_t(y')} (\abs{y'}+ \sqrt[4]{t})^{\alpha+\frac{D}{2}}(\abs{y'}+\sqrt[4]{t}+R+\abs{y})^{\abs{\beta}-2-3\alpha}
+    \end{multline}
+
+Let $\mu = \sqrt[4]{t}$ and $\lambda = \sqrt[4]{T-2t}$.
+By change of variable, 
+\begin{align}
+\lefteqn{ (\sqrt[4]{t})^{2\alpha} \int \! dy \, |\Psi_{T-2t}(y)| \int \! dy' \, |\Psi_t(y')| \, (|y'| + \sqrt[4]{t})^{\alpha + \frac{D}{2}} (|y'| + \sqrt[4]{t} + R + |y|)^{|\beta| - 2 - 3\alpha} } \nonumber \\
+& \quad = (\sqrt[4]{t})^{2\alpha} \iint |\Psi_1(z)| \, |\Psi_1(z')| \left[ \mu^{\alpha + \frac{D}{2}} (1 + |z'|)^{\alpha + \frac{D}{2}} \right] (\mu|z'| + \lambda|z| + \mu + R)^{|\beta| - 2 - 3\alpha} \, dz \, dz' \label{eq:changement_variable}
+\end{align}
+
+We separate scale variables from integration variables :
+\begin{equation}
+\mu|z'| + \lambda|z| + \mu + R \le (\mu + \lambda + R)(1 + |z| + |z'|)
+\end{equation}
+We obtain :
+\begin{align}
+\text{l.~h.~s. of \eqref{eq:changement_variable}} 
+& \le (\sqrt[4]{t})^{2\alpha} \cdot \mu^{\alpha + \frac{D}{2}} \cdot (\mu + \lambda + R)^{|\beta| - 2 - 3\alpha} \nonumber \\
+& \quad \times \iint |\Psi_1(z)| \, |\Psi_1(z')| \, (1 + |z'|)^{\alpha + \frac{D}{2}} (1 + |z| + |z'|)^{|\beta| - 2 - 3\alpha} \, dz \, dz' \label{eq:separation_blocs}
+\end{align}
+
+$\Psi_1$ is a Schwartz function, so the integral is a macroscopic constant. Replacing $\mu$ and $\lambda$ by their value, and because $\sqrt[4]{t} + \sqrt[4]{T-2t} \lesssim \sqrt[4]{T}$, we get :
+\begin{equation}
+(\int_{B_R} \dd x \mathbb{E}^\frac{2}{q} \abs{((EF_t)_t - EF_{2t})_{T-2t}(x)}^q)^\frac{1}{2} 
+ \lesssim (\sqrt[4]{t})^{3\alpha + \frac{D}{2}} (\sqrt[4]{T} + R)^{|\beta| - 2 - 3\alpha}
+\end{equation}
+Recall that $t=2^{k-n}T$, for $k=0,\dots,n-1$. Plugging in the telescoping sum, we get :
+\begin{align*}
+    \big(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}} \abs{(EF_\tau - F_{x\tau})_{T-\tau}(x)}^q)^{\frac{1}{2}} &\lesssim (\sqrt[4]{T} + R)^{|\beta| - 2 - 3\alpha} \sum_{k=0}^{n-1} (\sqrt[4]{2^(k-n)T})^{3\alpha + \frac{D}{2}}\\
+    &\lesssim (\sqrt[4]{T})^{3\alpha + \frac{D}{2}}(\sqrt[4]{T} + R)^{|\beta| - 2 - 3\alpha} \sum_{i=1}^{n} \rho^i \quad (\rho \coloneq (\sqrt[4]{2})^{-3\alpha -\frac{D}{2}})\\
+    &\lesssim (\sqrt[4]{T})^{3\alpha + \frac{D}{2}}(\sqrt[4]{T} + R)^{|\beta| - 2 - 3\alpha} 
+\end{align*}
+where the final inequality is justified by the fact that $\rho<1$ because of assumption $3\alpha+\frac{D}{2}>0$.
+
+Now, we need to prove that taking $\tau \rightarrow 0$, we get \eqref{eq:reconstruction_dPi-}.
+By the semigroup property, we have : 
+$$(EF_\tau - F_{x\tau})_{T-\tau}(x) = (EF_\tau)_{T-\tau}(x) - (\dG \Pi^-_x)_{\beta T}(x).$$
+Let's prove $(EF_\tau)_{T-\tau}(x)\longrightarrow \delta \Pi^-_T(x)$ for all $x\in B_R.$
+By definition :
+\begin{equation}
+    (EF_\tau)_{T-\tau}(x) =  \int  \dd y \, \psi_{T-\tau}(y)\, (\dGb_{x-y} \Pi^-_{x-y})_{\beta\tau}(x-y). 
+\end{equation}
+
+By \eqref{eq:qualitative_reconstruction} and the pointwise convergence $\psi_{T-\tau} \to \psi_T$, the integrand converges a.s. to $\psi_T(y)\, \delta\Pi^-_\beta(x-y)$ as $\tau \to 0$. 
+To apply the dominated convergence theorem, we claim that $(\dGb_z \Pi^-_z)_\beta$ is of polynomial growth in $z$.
+Since $\psi$ is a Schwartz function and therefore decays faster than any polynomial, this provides an integrable dominating function.
+Applying Fatou's lemma successively in the probability space and then in $B_R$, the uniform bound \eqref{eq:diagrec} passes to the limit and yields \eqref{eq:reconstruction_dPi-}.
+\end{proof}
+
+\begin{remark}
+    To see that $(\dGb_z \Pi^-_z)_\beta$ has polynomial growth, recall that we work with a fixed $\rho>0$. So all the objects constructed from $\xi_\rho$ - which is of polynomial growth - by convolutions, and polynomial operations, are of polynomial growth.
+
+A more pedestrian argument consists in relying on induction hypothesis :
+$$(\dGb_z \Pi^-_z)_\beta = \sum_{\substack{\gamma \neq \text{pp} \\ \abs{\gamma}_\prec < \abs{\beta}_\prec}} (\dGb_z)^\gamma_\beta \Pi^-_{z\gamma}.$$
+
+First, we prove a.s. polynomial growth of $(\dG)^\gamma_\beta$, $\gamma \neq $pp.
+By \eqref{eq:estimate_dG} with $R = 2^k$:
+\begin{equation*}
+    \int_{B_{2^k}} \mathbb{E}^{\frac{2}{q}} \abs{(\dG)^\gamma_\beta(x)}^q \dd x \lesssim 2^{k(D + 2(\abs{\beta}-\abs{\gamma}))}.
+\end{equation*}
+Set $Z_k \coloneq \big(\int_{B_{2^k}} \abs{(\dG)^\gamma_\beta(x)}^q \dd x\big)^{2/q}$. By Markov's inequality, for any $\varepsilon > 0$:
+\begin{equation*}
+    \mathbb{P}\!\left(Z_k > 2^{k(D + 2(\abs{\beta}-\abs{\gamma}) + \varepsilon)}\right) \leq \frac{\mathbb{E}[Z_k]}{2^{k(D + 2(\abs{\beta}-\abs{\gamma}) + \varepsilon)}} \lesssim 2^{-k\varepsilon}.
+\end{equation*}
+This is summable in $k$, so by the Borel-Cantelli lemma, a.s. for all $k$ large enough:
+\begin{equation*}
+    \int_{B_{2^k}} \abs{(\dG)^\gamma_\beta(x)}^q \dd x \lesssim_\omega 2^{kN_\varepsilon},
+\end{equation*}
+for some $N_\varepsilon > 0$. That is, $(\dG)^\gamma_\beta$ has a.s. polynomial $L^q$-growth in $x$.
+Because $(\dG)^\gamma_\beta$ is smooth (we work at a fixed $\rho >0$), Sobolev'inequality gives us almost sure polynomial growth uniformly in $x$.
+
+Secondly by induction hypothesis, \eqref{eq:estimate_Pi-x} holds for $\abs{\gamma}_\prec < \abs{\beta}_\prec$.
+\end{remark}
+
+
+
+
+
+

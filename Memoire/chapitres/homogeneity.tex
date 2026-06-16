@@ -1,0 +1,23 @@
+Let us prove the homogeneity estimate \eqref{eq:homdGPi-}, but first try the direct approach to prove the homogeneity bound of the germ $\dG \delta \Pi^-_x$ without splitting, to see the difference in exponents.
+We will end up using both computation anyway.
+
+\begin{align*}
+    \Big(\int_{B_R} \dd x\; \mathbb{E}^{\frac{2}{q}}\big| (\dG \Pi^-_x)_\beta\big|^q\Big)^{\frac{1}{2}}
+    &= \Big(\int_{B_R} \dd x\; \mathbb{E}^{\frac{2}{q}}\big|\sum_{\gamma } (\dG)^\gamma_\beta\,\Pi^-_{x\gamma r}(x)\big|^q\Big)^{\frac{1}{2}} \\
+    &\lesssim \sum_{\gamma } \Big(\int_{B_R} \dd x\; \mathbb{E}^{\frac{2}{2q}}\big|(\dG)^\gamma_\beta\big|^{2q} \mathbb{E}^{\frac{2}{2q}}\big|\Pi^-_{x\gamma r}(x)\big|^{2q}\Big)^{\frac{1}{2}} \quad \text{(Hölder)}\\
+    &\lesssim \sum_{\substack{\gamma \neq \text{pp} \\ \abs{\gamma}_\prec < \abs{\beta}_\prec}} \Big(\int_{B_R} \dd x\; \mathbb{E}^{\frac{2}{2q}}\big|(\dG)^\gamma_\beta\big|^{2q}\Big)^{\frac{1}{2}} \sup_{x \in B_R} \mathbb{E}^{\frac{1}{2q}}\big|\Pi^-_{x\gamma r}(x)\big|^{2q} \\
+    &\lesssim \sum_{\alpha \leq \abs{\gamma} < \frac{D}{2}+\abs{\beta}} R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} r^{\abs{\gamma} - 2} \quad \text{(by induction hypothesis)}\\  
+    &\lesssim r^{\alpha - 2} \sum_{\alpha \leq \abs{\gamma} < \frac{D}{2}+\abs{\beta}} R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} r^{\abs{\gamma} - \alpha}\\
+    &\lesssim r^{\alpha - 2} (R+r)^{\frac{D}{2}+\abs{\beta} - \alpha} 
+\end{align*}
+
+The condition $\gamma \neq \text{pp}$ comes from the fact that $\gamma = \text{pp} \implies \Pi^-_{x\gamma} = 0$. The condition $\abs{\gamma}_\prec < \abs{\beta}_\prec$ comes from the stric triangularity of $\dG$ with respect to $\abs{\, \cdot \, }_\prec$.
+Finally, we always have $\abs{\gamma} \geq \alpha$, and $\abs{\gamma}< \abs{\beta} + \frac{D}{2}$ also comes from population conditions on $\dG$.
+
+Now, say that we truncate the sum from below by $\abs{\gamma} \geq 2+s = \alpha + \frac{D}{2}$, and try to prove \eqref{eq:homdGPi-}~:
+\begin{align*}
+    \Big(\int_{B_R} \dd x\; \mathbb{E}^{\frac{2}{q}}\big| \sum_{\abs{\gamma} \geq 2+s} (\dG)^\gamma_\beta\,\Pi^-_{x\gamma r}(x)\big|^q\Big)^{\frac{1}{2}} &\lesssim \sum_{ \alpha + \frac{D}{2} \leq \abs{\gamma} < \frac{D}{2}+\abs{\beta}} R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} r^{\abs{\gamma} - 2} \\
+    &\lesssim r^{\alpha + \frac{D}{2} - 2} \sum_{ \alpha + \frac{D}{2} \leq \abs{\gamma} < \frac{D}{2}+\abs{\beta}} R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} r^{\abs{\gamma} - \alpha - \frac{D}{2}}\\
+    &\lesssim r^{\alpha + \frac{D}{2} - 2} (R+r)^{\abs{\beta} - \alpha} 
+\end{align*}
+which is better, and matches the reconstruction bound \eqref{eq:reconstruction_dPi-}. So this allow us to not degrade our exponents when using the triangle inequality to get \eqref{eq:reconstruction_Pi-2}, which in turn allows us to get the good reconstruction bound on $\delta \Pi$ \eqref{eq:reconstruction_dPi}. 
