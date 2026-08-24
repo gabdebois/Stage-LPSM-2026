@@ -23,13 +23,13 @@ Now appealing to $\abs{\gamma}\geq \abs{\beta} \implies(\G_{x}-id)^{\gamma}_{\be
 \begin{equation}
     \mathbb{E}^{\frac{1}{p}} \abs{(\Pi_{x+y\beta}-\Pi_{x\beta})_r(x)}^p \lesssim \sum_{\abs{\gamma}\leq \abs{\beta}} \abs{y}^{\abs{\beta}-\abs{\gamma}} r^{\abs{\gamma}}. 
 \end{equation}
-We also know that $\abs{\gamma} \geq \alpha$ for all populated $\gamma$ (see (62) in \cite{BOT_2024}, $\alpha$ is the roughest regularity of the model, it is the regularity of $\Pi_0$), so we can restrict the sum to $\abs{\gamma} \geq \alpha$.
+We also know that $\abs{\gamma} \geq \alpha$ for all populated $\gamma$ (see (62) in \cite{BOT25}, $\alpha$ is the roughest regularity of the model, it is the regularity of $\Pi_0$), so we can restrict the sum to $\abs{\gamma} \geq \alpha$.
 Factorizing by $r^{\alpha}$, and using a binomial expansion, we get \eqref{eq:estimate_Pi}.
 \endproof
 The proof for $\Pi^-$ is analog.
 
 We are not trying to apply a reconstruction theorem here, but coherence and homogeneity are the two relevant metrics to measure germs of distributions.
-In order to prove these estimates, we will first prove similar estimates on $\delta \Pi$ and $\delta \Pi^-$, which are the Malliavin derivatives of $\Pi$ and $\Pi^-$ with respect to the noise $\xi$, or rather on their germs $\dG \Pi_x$ and $\dG \Pi^-_x$ (cf section 2.6 from \cite{BOT_2024} to see why these are the right germs). We will take advantage of the fact that $\delta \Pi$ and $\delta \Pi^-$ are related by a robust relation, and that they are more regular, by a order $\frac{D}{2}$.
+In order to prove these estimates, we will first prove similar estimates on $\delta \Pi$ and $\delta \Pi^-$, which are the Malliavin derivatives of $\Pi$ and $\Pi^-$ with respect to the noise $\xi$, or rather on their germs $\dG \Pi_x$ and $\dG \Pi^-_x$ (cf section 2.6 from \cite{BOT25} to see why these are the right germs). We will take advantage of the fact that $\delta \Pi$ and $\delta \Pi^-$ are related by a robust relation, and that they are more regular, by a order $\frac{D}{2}$.
 
 The shape of the estimate will be slighty different as we are going to take a local $L^2$-norm in $x$ instead of an $L^\infty$ norm. This is dictated by what we are able to prove for the base case : a pointwise estimate is to strong, and we use an $L^2$-norm because of the $L^2$ nature of $\dot{H}_s$ ($\ni \delta \Pi^-_0 = \delta \xi_\rho$). The proof of the base case relies on Fourier transform.
 Finally, we cannot expect square integrability of $\mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi - \dGb_{x} \Pi_{x})_{\beta r}(x)}^q$ at infinity, so we take a local norm.
@@ -56,7 +56,7 @@ And deduce a reconstruction bound for $\delta \Pi$ by integration (see below) :
     (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi - \dGb_{x} \Pi_{x})_{\beta r}(x)}^q)^{\frac{1}{2}} \lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta}-\alpha} \quad \text{(reconstruction)} \label{eq:reconstruction_dPi}
 \end{equation}
 
-What is cructial here is the exponent $3\alpha + \frac{D}{2}$, in the coherence estimate of $\dG \Pi^-_x$ and in the reconstruction bound for $\delta \Pi^-$. It indeed plays the role of $\gamma$ in the reconstruction theorem presented in \cite{broux2023besov}, and is positive by assumption in \cite{BOT_2024}. Because of this, the reconstuction theorem ensures uniqueness of the reconstruction $\delta \Pi^-$.
+What is cructial here is the exponent $3\alpha + \frac{D}{2}$, in the coherence estimate of $\dG \Pi^-_x$ and in the reconstruction bound for $\delta \Pi^-$. It indeed plays the role of $\gamma$ in the reconstruction theorem presented in \cite{BL21}, and is positive by assumption in \cite{BOT25}. Because of this, the reconstuction theorem ensures uniqueness of the reconstruction $\delta \Pi^-$.
 The same goes for $\delta \Pi$ with the exponent $\alpha + \frac{D}{2}$ which is even more positive as $\alpha < 0$.  
 This cascades down to show that our model is uniquely caracterized.
 

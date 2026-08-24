@@ -1,5 +1,5 @@
 \chapter{Introduction}
-\cite{BOT_2024}
+\label{ch:intro}
 Let us define the parabolic differential operator of second order :
 $$L \coloneq \partial_0 - \sum_{i=1}^{d}\partial_i^2.$$
 Here, $x_0$ is the time variable and $\{x_i\}_{i=1,\dots,d}$ are the space variable.
@@ -11,6 +11,63 @@ We are insterested in the equation
 where $\lambda$ is a real parameter, and $\xi$ a space time function/distribution.
 This equation presents a non-linearity (when $\lambda \neq 0$). We are insterested in the cases where $\xi$ is rough, and thus the equation does not have a rigourous meaning a priori.
 Indeed, if $\xi$ is a distribution so rough that the solution is also not better that a distribution, then $\phi^3$ is ill-defined.
-For example, if $\lambda = 0$, $d = 0$ and $\xi = \frac{d^2B}{dx_0^2}$, then the solution $\Pi_0$ is given by $\frac{dB}{dx_0}$ which is a genuine distribution of regularity just worse than $- \frac{1}{2}$.
+For example, if $\lambda = 0$, $d = 0$ and $\xi = \frac{d^2B}{dx_0^2}$, then the solution $\Pi_0$ is given by $\frac{dB}{dx_0}$ which is a genuine distribution of regularity just worse than $- \frac{1}{2}$ (Brownian motion is $\frac{1}{2}^-$-Hölder and derivation lowers the regularity by one).
+Now, multiplying two distributions of respective regularity $\beta, \beta'$ only makes canonical sense when $\beta+\beta'>0$, this is Young's multiplication theorem. 
+
+Now in the case we are interested in, where we have at least a space variable $d \geq 1$, and we consider space-time white noise (to be defined rigourously later).
+% Because $L$ mixes $\partial_0$ and $\partial_i^2$, we work is a parabolic scaling, meaning that we measure distance and regularity treating the time variable like it counts for two space variable. We will make this precise, but for now just note that the effective dimension is thus $D\coloneq d + 2$.
+We will define Hölder-Besov spaces precisely later, but heuristicly : a distribution is of regularity $\beta$ if, under the parabolic rescaling $(x_0,x_i) \mapsto (\epsilon^2 x_0, \epsilon x_i)$, it gets multiplied by $\epsilon^\beta$.
+
+$\xi$ has regularity $-\frac{D}{2}^-$, so the higher the dimension, the rougher it is.
+
+Since $L$ is a parabolic operator of order $2$, its inverse $L^{-1}$ gains two levels of regularity (we will prove this precisely later, via Schauder estimates on the heat kernel). Hence the linear solution $\Pi_0 \coloneq L^{-1}\xi$ has regularity
+$$\alpha \coloneq 2-\frac{D}{2} = \frac{2-d}{2}.$$
+
+Expecting $\phi$ to be no better than $\Pi_0$, we need $2\alpha>0$ to even give a meaning to $\phi^2$, hence to $\phi^3$.
+
+But $\alpha = \frac{2-d}{2}\leq 0$ as soon as $d\geq 2$ : in this regime, the non-linear term $\phi^3$ has a priori no meaning, and \eqref{eq:phi4} is purely formal.
+
+A first step towards solving this problem is using renormalization. To understand this, we will discuss the Da Prato-Debussche approach in a simpler setting.
+Consider the equation
+\begin{equation}
+    (-\Delta)\phi = \lambda \phi^3 + \xi, \quad \text{on }B\subset \R^4.
+\end{equation}
+We replaced the heat operator by the Laplacian, because its ellipticity simplifies the discussion. We choose $d=4$ so that $\xi$ has regularity $-2^-$, thus we expect $\phi$ to have regularity $O^-$ so that we are in the singular setting where $\phi^3$ does not make sense a priori.
+
+The idea is to write $\phi = \Pi_0 + \psi$ where $\Pi_0$ solves the linear equation $(-\Delta)\Pi_0 = \xi$, and hope that because - at least for small $\lambda$ - $\Pi_0$ approximates well $\phi$, $\psi$ would have better regularity that $\phi$.
+We can write the equation satisfied by $\psi$ : 
+\begin{equation*}
+    (-\Delta)\psi = \lambda \phi^3 = \lambda (\psi^3 + 3 \psi^2 \Pi_0 + 3 \psi \Pi_0^2 + \Pi_0^3)
+\end{equation*}
+Now if $\psi$ is regular enough so that we can make sense of its powers, this is an improvement. 
+Indeed, before we had to make sense of $\phi^3$ for a general $\phi$ of negative regularity, and now it suffices to make sense of $\Pi_0^2$ and $\Pi_0^3$ where $\Pi_0$ is an explicit distribution defined by $(-\Delta)\Pi_0 = \xi$.
+Of course, $\Pi_0$ is still of regularity $0^-$, so $\Pi_0^2,\Pi_0^3$ are still analytically ill-defined, but we expect to be able to construct thanks to probabilistic arguments.
+Suppose we succeed, and $\Pi_0^i$ has regularity $\alpha \times i$ for $i=1,2,3$. Then we expect $\psi$ to have regularity $3\alpha +2$.
+If $5\alpha + 2 >0$ (and as a consequence $2(3\alpha +2) + \alpha >0$), Young's multiplication theorem allows us to make sense of the products $\psi \Pi_0^2$ and $\psi^2 \Pi_0$. We will thus be able to set up a fixed point argument to find $\psi$ and as a consequence $\phi = \psi + \Pi_0$.
+To sum up, the approach is comprised of a probabilistic step, where we need to construct new objects, that are iterated integrals of the noise, and an analytical step where we built the solution.
+The more involved approach of regularity structures follows the same scheme.
+
+The probabilistic construction of $\Pi_0^2$ and $\Pi_0^3$ is based on renormalization.
+First, regularise the noise by convolution against a regularising kernel $\eta$ : $\xi_\rho \coloneq \xi \star \eta_\rho$. Then, denote $\Pi_{0,\rho}$ the solution for the regularised equation $(-\Delta)u = \xi_\rho$.
+This is a smooth function and we can take its powers $\Pi_{0,\rho}^i$, $i=2,3$. 
+
+It turns out $\mathbb{E}\left[ \Pi_{0,\rho}^2 (x) \right] = C_\rho$ independent of $x$, and $C_\rho$ diverges when $\rho \rightarrow 0$, so these powers do not converge when we take out the regularisation.
+But  the renormalized $\Pi_{0,\rho}^{\diamond 2} \coloneq \Pi_{0,\rho}^2-C_\rho$ do have a variance uniformly bounded in $\rho$, in fact, if actually converges to a random distribution $\Pi_0^{\diamond 2}$ when $\rho \rightarrow 0$.
+Similarly, $\Pi_{0,\rho}^{\diamond} \coloneq \Pi_{0,\rho}$ and $\Pi_{0,\rho}^{\diamond 3} \coloneq \Pi_{0,\rho} ^3 - 3 C_\rho \Pi_{0,\rho}$ have uniformly bounded variance in $\rho$, and converge to some distributions $\Pi_0$ and $\Pi_0^{\diamond 3}$.
+And these limit most importantly do not depend on the choice of regularisation $\eta_\rho$, which legitimates those renormalization.
+
+The Da Prato-Debussche approach on the original equation, with $d=3$ does not work, because we do not get an equation for $\psi$ where Young's multiplication theorem applies, assuming we can construct the iterated integrales. 
+Trying to further decompose $\psi = Z + \theta$ is of no help, because we run in the same issue when writing the equation for $\theta$.
+We won't be able to find an equation where we can perform a fixed point argument. This is the starting point of the theory of regularity structures introduced by Martin Hairer in \cite{Hai14}.
 
 
+% Dire que ça marche pas pour phi43 car le bruit est trop irrégulier 
+% Pas de point fixe a priori
+% ->structure de regularités
+% Espace des distributions modellées
+% Reconstruction, noyaux regularisateur, diagramme commutatif,
+% On peut écrire l'équation dans l'espace des distrib modellée et elle a la même forme !
+
+% Presentation de l'approche géométrique de Otto : ansatz, régime alpha in (0,1) via le scaling (sub-criticality)
+
+% Expliquer que l'on va utiliser le trou spectral

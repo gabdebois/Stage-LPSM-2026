@@ -1,0 +1,128 @@
+\documentclass[12pt, a4paper]{report}
+
+% --- PACKAGES---
+\usepackage[utf8]{inputenc}       % Encodage (standard)
+\usepackage[T1]{fontenc}          % Polices de sortie
+\usepackage[english]{babel}        % Langue française (guillemets, césure)
+\usepackage{biblatex}
+\usepackage{lmodern}              % Police plus lisible
+\usepackage{microtype}            % Améliore l'apparence visuelle du texte
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % La base du LaTeX mathématique
+\usepackage{mathtools}             % Extensions pour amsmath
+\usepackage{mathrsfs}              % Lettres calligraphiques (\mathscr{L})
+\usepackage{bm}                    % Symboles en gras (\bm{x})
+\usepackage{empheq}
+% --- CONFIGURATION DES THÉORÈMES ---
+\newtheorem{theorem}{Théorème}[chapter]
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollaire}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Définition}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{remark}[theorem]{Remarque}
+
+% --- MISE EN PAGE ---
+\usepackage[margin=2.5cm]{geometry} % Marges
+\usepackage{hyperref}               % Liens cliquables (sommaire, citations)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% --- TES MACROS (Raccourcis) ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\diff}{\mathrm{d}}     % Pour un joli 'd' de différentielle
+\newcommand{\dG}{\mathrm{d}\Gamma^*_x}
+\newcommand{\dGb}{\mathrm{d}\Gamma^*}
+\newcommand{\D}{\mathscr{D}}
+
+\newcommand{\G}{\Gamma^*}
+\newcommand{\mn}{\mathbf{n}}
+\newcommand{\mm}[1]{\mathbf{m}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\z}[1]{\mathbf{z}_{#1}}
+
+% --- INFOS DU MÉMOIRE ---
+\title{Titre de ton Mémoire de Recherche}
+\author{Gabriel de Boisgrollier}
+\date{\today}
+
+% Chemin du logo (laisser vide ou commenter le \includegraphics ci-dessous si vous n'en avez pas)
+\newcommand{\theLogoPath}{pics/LogoDauphine.jpg}
+
+\addbibresource{Stage LPSM.bib}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+ 
+    % --- Logo (à commenter si vous n'avez pas de fichier logo) ---
+    \includegraphics[width=0.35\textwidth]{\theLogoPath}\\[1.5cm]
+ 
+    {\Large Université Paris Dauphine -- PSL \par}
+    \vspace{0.3cm}
+    {\large M2 MATH \par}
+ 
+    \vspace{2.5cm}
+    \rule{\linewidth}{0.5mm}\\[0.6cm]
+    {\Huge \bfseries Regularity structures for the singular stochastic partial differential equation $\phi^4_3$ \par}
+    \vspace{0.6cm}
+    \rule{\linewidth}{0.5mm}\\[1.5cm]
+ 
+    \vspace{2cm}
+ 
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushleft} \large
+            \emph{Student :}\\
+            Gabriel de Boisgrollier
+        \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushright} \large
+            \emph{Tutor :}\\
+            Lorenzo Zambotti\\[0.4cm]
+        \end{flushright}
+    \end{minipage}
+    \vfill
+    \includegraphics[width=0.35\textwidth]{pics/logo_LPSM.jpg}\\[1.5cm]
+ 
+    {\large Academic year 2025/2026 \par}
+ 
+\end{titlepage}
+
+
+\begin{abstract}
+This master’s thesis explores the mathematical foundations of singular stochastic partial differential equations (SPDEs), 
+focusing on the stochastic quantization of the classical $\phi^4_3$ model in quantum field theory. 
+Due to the extremely rough nature of the driving space-time white noise, traditional calculus fails because the non-linear term $\phi^3$ is mathematically ill-defined. 
+To overcome these singularities, we investigate Martin Hairer's landmark theory of regularity structures. Specifically, we study a recent, cutting-edge "diagram-free" approach that replaces complex combinatorial trees with a more parsimonious index set of multi-indices. 
+By treating the directional Malliavin derivative as a "tangent vector" to the solution manifold, it can be mathematically analyzed as a modeled distribution. 
+This geometric reformulation, in conjunction with a spectral gap inequality, yields robust stochastic estimates and BPHZ renormalization. 
+Our work provides an overview of the theory of regularity strucutures, and detailed reformulation of certain proofs of this modern approach. 
+\end{abstract}
+
+\tableofcontents
+
+% --- INCLUSION DES CHAPITRES ---
+% Git va adorer cette séparation par fichiers !
+%
+\include{chapitres/intro}
+\include{chapitres/some_tools}
+\include{chapitres/reg_structures}
+\include{chapitres/phi4}
+\include{chapitres/a_robust_relation}
+\include{chapitres/motivation_and_statement}
+\include{chapitres/homogeneity}
+\include{chapitres/reconstruction}
+\include{chapitres/conclusion}
+
+
+% --- BIBLIOGRAPHIE ---
+\printbibliography
+
+\end{document}

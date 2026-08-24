@@ -1,0 +1,90 @@
+\chapter{Regularity structures}
+
+\begin{definition}
+    A regularity stucture is a triple $\mathcal{T}\coloneq (A,T,G)$ where :
+    \begin{itemize}
+        \item $A\subset \R$ is bounded from below and locally finite,
+        \item $T = \bigoplus_{\alpha\in A} T_\alpha$ is a vector space graded by $A$ with each $T_\alpha$ being a Banach space,
+        \item $G$ is a group of continuous operator on $T$ such that for all $\Gamma \in G$, $\alpha \in A$, $\tau \in T_\alpha$, we have $\Gamma \tau - \tau \in \bigoplus_{\beta < \alpha} T_\beta$.
+    \end{itemize} 
+\end{definition}
+\begin{remark}
+    For $\tau\in T$, we denote by $\norm{\tau}_{\alpha}$ the norm of the component of $\tau$ in $T_\alpha$.
+\end{remark}
+
+\begin{remark}
+    If $A$ is infinite, $T$ is the set of formal series $\sum_{\alpha \in A} \tau_\alpha$ where only a finitely many $\tau_\alpha$ are non zero.
+\end{remark}
+
+We need a map to build actual distributions from those algebraic objects, this is the role of the model:
+\begin{definition}[Model]
+    Given a regularity stucture $\mathcal{T}$ and an integer $d\geq 1$, a model for $\mathcal{T}$ on $\R^d$ consists of maps
+  \begin{equation*}
+    \begin{array}{rcl}
+        \Pi : \R^d &\longrightarrow &\mathcal{L}(T, \mathcal{S}'(\R^d)), \\
+         x              & \longmapsto     & \Pi_x,
+    \end{array} \quad 
+    \begin{array}{rcl}
+                    \Gamma : \R^d \times \R^d &\longrightarrow &G, \\
+                    (x,y)              & \longmapsto     & \Gamma_{xy},
+    \end{array}
+    \end{equation*}
+    such that $\forall x,y,z \in \R^d, \quad \Gamma_{xy}\Gamma_{yz} =\Gamma_{xz} \text{ and } \Pi_x \Gamma_{xy} = \Pi_y$, and such that the following estimates hold.
+    Given $r>\abs{\inf A}$, for any compact set $K\subset \R^d$ and constant $\gamma >0$, there exists a constant C such that :
+    \begin{equation}
+        \abs{(\Pi_x \tau)(\phi^\lambda_x)}\leq C\lambda^{\abs{\tau}}\norm{\tau}_\alpha,\quad \norm{\Gamma_{xy} \tau}_\beta \leq C \abs{x - y}^{\alpha - \beta} \norm{\tau}_\alpha
+    \end{equation}
+    uniformly on $\phi \in \mathcal{B}^r$, $x,y\in K$, $\lambda\in (0,1]$, $\tau \in T_\alpha$ with $\alpha\leq \gamma$, and $\beta<\alpha$.
+\end{definition}
+
+\begin{definition}
+    Given a regularity structure $\mathcal{T}$ equipped with a model $(\Pi, \Gamma)$ over $\R^d$, we introduce the space of modelled distribution $\mathcal{D}^\gamma (\mathcal{T}, \Gamma)$ as the set of functions $f:\R^d \rightarrow \bigoplus_{\alpha<\gamma}T_\alpha$ such that
+    for any compact $K\subset \R^d$ and $\alpha <\gamma$, 
+    \begin{equation*}
+        \norm{f(x) - \Gamma_{xy}f(y)}_\alpha \lesssim \abs{x-y}^{\gamma - \alpha},
+    \end{equation*}
+    uniformly over $x,y \in K$.
+\end{definition}
+
+\begin{remark}
+    \label{rk:mod_distrib_is_coh_germ}
+    Let $f\in \mathcal{D}^\gamma$ be a modelled distribution, and let $\alpha \coloneq \inf A$.
+    Then, $(\Pi_x f(x))_{x\in R^d}$ is an $(\alpha,\gamma)$ coherent germ.
+    As a result, if $\gamma>0$, we can apply the reconstruction theorem.
+    We can thus define a reconstruction map $\mathcal{R}: (\Pi,\Gamma, f)\mapsto \mathcal{R}(f)\coloneq \mathcal{R}((\Pi_x f(x)))$. It turns out to be locally Lipschitz when the distance between $(\Pi, \Gamma, f)$ and $(\bar{\Pi}, \bar{\Gamma}, \bar{f})$ is given by the smallest constant $\kappa$ such that :
+    \begin{align*}
+        \norm{f(x) - \bar{f}(x) - \Gamma_{xy}f(y) - \bar{\Gamma}_{xy}\bar{f}(y)}_\alpha &\leq \kappa \abs{x - y}^{\gamma - \alpha},\\
+        \abs{(\Pi_x \tau - \bar{\Pi}_x \tau)(\phi^\lambda_x)}&\leq \kappa \lambda^\alpha \norm{\tau}, \\
+        \norm{\Gamma_{xy} \tau - \bar{\Gamma}_{xy} \tau}_\beta &\leq \kappa \abs{x-y}^{\alpha - \beta}\norm{\tau}.\\
+    \end{align*}
+    uniformly locally on $x,y$, $\phi \in \mathcal{B}^r$, $\tau \in T$, $\beta < \alpha \leq \gamma$.
+\end{remark}
+
+\begin{proof}
+    Let us prove that $(\Pi_x f(x))_{x\in R^d}$ is an $(\alpha,\gamma)$-coherent germ.
+    Let $K\subset \R^d$ a compact set and $x,y \in K$.
+    For all $\beta \in A, \; \beta<\gamma$, denote $\delta^{x,y}_\beta$ the projection of $f(x) - \Gamma_{xy}f(y)$ on $T_\beta$.
+    We have :
+    \begin{align*}
+        \abs{(\Pi_x f(x) - \Pi_y f(y))(\phi_x^\lambda)} &= \abs{(\Pi_x(f(x) - \Gamma_{xy}f(y)))(\phi^\lambda_x)}\\
+        &\lesssim \sum_{\substack{\beta\in A \\ \alpha \leq \beta <\gamma}} \abs{(\Pi_x(\delta^{x,y}_\beta))(\phi^\lambda_x)}\\
+        &\lesssim \sum_{\substack{\beta\in A \\ \alpha \leq \beta <\gamma}} \lambda^{\beta} \norm{f(x) - \Gamma_{xy}f(y)}_\beta \quad (\text{by definition of a model})\\
+        &\lesssim \sum_{\substack{\beta\in A \\ \alpha \leq \beta <\gamma}} \lambda^{\beta} \abs{x-y}^{\gamma - \beta} \quad (f\in \mathcal{D}^\gamma)\\
+        &\lesssim \lambda^\alpha \max_{\substack{\beta\in A \\ \alpha \leq \beta <\gamma}} \lambda^{\beta - \alpha} \abs{x-y}^{\gamma - \alpha - (\beta - \alpha)} \\
+        &\lesssim \lambda^\alpha (\lambda + \abs{x-y})^{\gamma - \alpha}.
+    \end{align*}
+\end{proof}
+
+The space of modelled distribution is central because it is the space in which we are able to state our solution problem as a fixed-point problem.
+To properly define the associated contraction map, we need two tools : a reconstruction theorem, and multilevel Schauder-estimates.
+The reconstruction theorem is direct corollary of theorem \ref{thm:germ_reconstruction} and remark \ref{rk:mod_distrib_is_coh_germ}.
+\begin{corollary}[Reconstruction theorem for modelled distribution]
+Let $\mathcal{T}$ be a regularity structure equipped with a model $(\Pi,\Gamma)$ over $\R^d$.
+Let $\gamma>0$ and $f\in \mathcal{D}^\gamma(\mathcal{T},\Gamma)$ be a modelled distribution.
+Finally, let $\alpha \coloneq \inf A$ and fix $r>\abs{\alpha}$.
+Then there exists a reconstruction map $\mathcal{R}:\mathcal{D}^\gamma(\mathcal{T},\Gamma) \rightarrow \mathcal{C}^\alpha$ such that 
+for every compact set $K\subset \R^n$, 
+\begin{equation*}
+    \abs{(\mathcal{R}(f) - \Pi_x f(x))(\phi_x)} \lesssim \lambda^\gamma 
+\end{equation*}
+\end{corollary}

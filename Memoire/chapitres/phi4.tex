@@ -1,0 +1,131 @@
+\chapter{The $\phi^4_3$ model}
+
+\section{Introduction and Physical Symmetries}
+
+In this chapter, we focus on presenting the geometric and diagram-free approach of article \cite{BOT25}, which was the main topic of the internship.
+Recall the $\phi^4_3$ equation :
+\begin{equation}
+    L\phi - \lambda \phi^3 = \xi,
+\end{equation}
+where $L = \partial_0 - \sum_{i=1}^d \partial_i^2$ is the heat operator in $d = 3$ space dimensions, and $\xi$ represents a space-time white noise. 
+
+As discussed in Chapter~\ref{ch:intro}, the classical Da Prato-Debussche approach, while highly effective for the $\phi^4_2$ model, fails in $d = 3$ \cite{Ber22}. Indeed, in three spatial dimensions, the linear stochastic convolution $\Pi_0$ is a genuine distribution of local Hölder regularity $-\frac{1}{2}-$. As a result, the non-linear remainder $\psi = \phi - \Pi_0$ does not possess enough regularity to make sense of the products $\psi \Pi_0^2$ or $\psi^2 \Pi_0$ via classical Young multiplication. To resolve this, we draw on the theory of regularity structures, in a diagram-free approach pioneered by Linares, Otto, Tempelmayr, and Tsatsoulis, which indexes the model components by multi-indices $\beta$ rather than trees.
+
+The stochastic estimates of the model are obtained by leveraging a \textit{Spectral Gap Inequality} on the noise ensemble, which controls the probabilistic $L^p$-norms of the model by means of their directional \textit{Malliavin derivatives} $\delta \Pi$. This reduces the probabilistic problem of model bounds to the analytic task of reconstructing and integrating the Malliavin increments, which are governed by a robust relation $\delta \Pi \to \delta \Pi^-$ that does not depend on the diverging counterterms as shown in section \ref{ch:robust}.
+
+
+
+We consider the space-time noise $\xi$ as a random Schwartz distribution on the $d$-dimensional space-time. More precisely, $\xi$ is a centered Gaussian process defined on the space of Schwartz functions, fully characterized by its covariance structure. For any test functions $\zeta$ and $\zeta'$, the covariance of the dual pairing satisfies the relation:
+\begin{equation}
+\mathbb{E} [(\xi, \zeta)(\xi, \zeta')] = \int_{\mathbb{R}^{1+d}} \zeta(x) \zeta'(x) \, dx.
+\end{equation}
+This spatial inner product makes the law of the noise invariant under space-time translations, spatial reflections, and parity. Moreover, the noise possesses a parabolic scale invariance in law under the scaling operator $R_r$, which scales the time-like variable $x_0$ by $r^2$ and the space-like variables $x_i$ by $r$. The scaling operator is defined for any scale $r > 0$ by:
+\begin{equation}
+R_r x = (r^2 x_0, r x_1, \dots, r x_d).
+\end{equation}
+This scale invariance is written as:
+\begin{equation}
+\xi(R_r \cdot) \stackrel{\text{law}}{=} r^{s - \frac{D}{2}} \xi,
+\end{equation}
+where $s$ is a real exponent and $D = d + 2$ represents the effective parabolic dimension of the space-time.
+
+To analyze the behavior of the system under scaling, we consider a blow-up or zoom-in transformation of the noise and the solution. Under this scaling, the linear solution $\phi_0$ of the equation $L\phi_0 = \xi$ has a regularity exponent $\alpha = 2 + s - D/2$. The original semi-linear equation is invariant under this rescaling provided that we adjust the strength of the cubic non-linearity by a factor $r^{2(1 + \alpha)}$. This leads to the definition of the subcritical regime, which is characterized by the condition:
+\begin{equation}
+\alpha + 1 > 0.
+\end{equation}
+In this regime, the exponent associated with the scaled coupling constant is strictly positive, which means that the effect of the non-linearity vanishes on small scales. This ensures that the equation is super-renormalizable and can be resolved locally using a finite number of counterterms.
+
+To regularize the singular equation, we introduce a mollified noise at scale $\rho$ and modify the partial differential equation by introducing a deterministic, regularization-dependent counterterm. Symmetries under space-time translations, state reflection parity, and spatial reflections significantly restrict the allowed counterterms. First, stationarity under space-time translations dictates that the counterterm coefficients must be space-time constants. Second, because the noise is a centered Gaussian, its law is symmetric under state reflection, meaning $-\xi \stackrel{\text{law}}{=} \xi$. Since the cubic non-linearity is also odd, this state reflection symmetry $-\phi \stackrel{\text{law}}{=} \phi$ propagates through the multi-indices. On the level of the model components, the noise homogeneity which keeps track of the number of noises in the multi-index $\beta$ dictates that:
+\begin{equation}
+(-1)^{1 + \sum_{n} \beta(n)} \Pi_\beta \stackrel{\text{law}}{=} \Pi_\beta \quad \text{and} \quad (-1)^{1 + \sum_{n} \beta(n)} \Pi^-_\beta \stackrel{\text{law}}{=} \Pi^-_\beta.
+\end{equation}
+This implies that the counterterm coefficients must vanish unless the exponent $1 + \sum_{n} \beta(n)$ is even, which rules out terms like $h(\rho) 1$ or $h(\rho) \phi^2$. Third, spatial reflection parity across the $\{x_i = 0\}$ plane dictates that:
+\begin{equation}
+(-1)^{\sum_{n} n_i \beta(n)} \Pi_\beta(R_i \cdot) \stackrel{\text{law}}{=} \Pi_\beta \quad \text{and} \quad (-1)^{\sum_{n} n_i \beta(n)} \Pi^-_\beta(R_i \cdot) \stackrel{\text{law}}{=} \Pi^-_\beta.
+\end{equation}
+Evaluating at the base point $x = 0$ against a spatially symmetric kernel, this forces the expectation to vanish if the spatial parity exponent is odd, ruling out gradient terms of the form $h_i(\rho) \partial_i \phi$. Combining these constraints with the subcriticality condition that only permits counterterms associated with multi-indices of negative homogeneity ($|\beta| < 2$), we reduce the allowed counterterms to the linear form $h = h(\rho) \phi$. The coefficient $h(\rho)$ is represented as a formal power series in the coupling constant $\lambda$ given by:
+\begin{equation}
+h(\rho) = \sum_{k \geq 0} c_k \lambda^k.
+\end{equation}
+The constant coefficients $c_k$ are deterministic and vanish unless $k$ is strictly positive and satisfies the scaling restriction:
+\begin{equation}
+0 < k < (1 + \alpha)^{-1}.
+\end{equation}
+
+We parameterize the non-linear solution manifold using a coordinate system on the parameter space of the coupling constant and the space-time analytic functions. Let $p$ be an analytic function representing the solution in the linear case. We introduce coordinates $z_n[p] = \frac{1}{n!} \partial^n p(0)$ for space-time multi-indices $n = (n_0, \dots, n_d)$, and $z_3[\lambda] = \lambda$ for the coupling constant. For any multi-index $\beta$ over the index set, we define the coordinate monomial:
+\begin{equation}
+z^\beta = z_3^{\beta(3)} \prod_{n} z_n^{\beta(n)}.
+\end{equation}
+We then make an ansatz for the solution $\phi$ as a formal power series given by:
+\begin{equation}
+\phi = \sum_{\beta} z^\beta \Pi_\beta,
+\end{equation}
+where the coefficients $\Pi_\beta$ are random space-time functions. To ensure consistency for the linear case when the coupling constant vanishes, the polynomial boundary conditions are uniquely fixed on the components of zero coupling homogeneity. That is, for any multi-index $\beta$ such that $\beta(3) = 0$ but $\beta$ is not the zero multi-index, we have:
+\begin{equation}
+\Pi_\beta(y) = \begin{cases} y^n & \text{if } \beta = \delta_n, \\ 0 & \text{otherwise}, \end{cases}
+\end{equation}
+where $\delta_n$ represents the multi-index that assigns the value one to the coordinate index $n$ and zero to all other entries. This represents a compact separation of variables between the parameter space coordinates and the random space-time fluctuations of the model.
+
+We introduce the formal power series $\Pi^-$ to represent the right-hand side of the renormalized equation, including the non-linear cubic term and the counterterm. The component-wise description of the system is captured by the relation:
+\begin{equation}
+\Pi^- = z_3 \Pi^3 + c \Pi + \xi_\rho 1,
+\end{equation}
+where $c$ represents the formal power series of the renormalization constants and the product is defined via the algebraic multiplication of formal power series. Component-wise, the elements of the right-hand side are determined by the formula:
+\begin{equation}
+\Pi^-_\beta = \sum_{\beta_1 + \beta_2 + \beta_3 + \delta_3 = \beta} \Pi_{\beta_1} \Pi_{\beta_2} \Pi_{\beta_3} + \sum_{\beta_1 + \beta_2 = \beta, \, \beta_1(3) > 0, \, \forall n: \beta_1(n) = 0} c_{\beta_1} \Pi_{\beta_2} + \xi_\rho \delta_{0\beta}.
+\end{equation}
+With these notations, the renormalized partial differential equation can be compactly written as:
+\begin{equation}
+L\Pi - \Pi^- = 0 \quad \text{mod analytic functions}.
+\end{equation}
+This relation holds component-wise for each multi-index $\beta$, providing a strictly triangular hierarchy of equations that allows for the inductive construction of the model components.
+
+Since the parameterization of the solution manifold depends on the choice of the origin, we introduce a general base-point $x$ in space-time to define a translation-invariant model. This change of base-point leads to two different parameterizations of the same solution, which are related by a random parameter transformation. This transformation induces, by pull-back, a linear endomorphism of the space of formal power series denoted by $\Gamma^*_x$. Algebraically, the transition map $\Gamma^*_x$ is a multiplicative algebra automorphism. This means that for any power series $\pi$ and $\pi'$, it satisfies the relation:
+\begin{equation}
+\Gamma^*_x(\pi \pi') = (\Gamma^*_x \pi) (\Gamma^*_x \pi')
+\end{equation}
+and maps the unit element to itself. Furthermore, it leaves the coupling constant invariant, meaning:
+\begin{equation}
+\Gamma^*_x z_3 = z_3,
+\end{equation}
+and consequently acts trivially on the renormalization constants:
+\begin{equation}
+\Gamma^*_x c = c.
+\end{equation}
+The shift of the base-point from the origin to $x$ is then algebraically represented by the identities:
+\begin{align}
+\Pi &= \Gamma^*_x \Pi_x, \\
+\Pi^- &= \Gamma^*_x \Pi^-_x.
+\end{align}
+
+
+\section{The spectral gap inequality}
+
+Structurally, the spectral inequality inequality behaves like an infinite-dimensional Poincaré inequality on the space of space-time fields. It is specified over a translation-invariant Hilbert space (typically an $L^2$-based fractional Sobolev or Besov space) that plays the role of the Cameron-Martin space in Gaussian measures. 
+For a generic integrable random variable $F = F[\xi]$, the inequality bounds its variance by the expectation of the norm of its Malliavin derivative:
+\begin{equation}
+\mathbb{E}(F - \mathbb{E}F)^2 \le \mathbb{E}\left\| \frac{\partial F}{\partial \xi} \right\|^{2}_{\dot{H}^{-s}}
+\end{equation}
+
+While the BPHZ choice of counterterms is designed to annihilate the expectation of the random variables of negative homogeneity ($\mathbb{E}\Pi^- = 0$), the spectral gap inequality controls their variance. This effectively reduces the stochastic task of estimating the $L^p$ moments of the model to the analytical task of controlling its Malliavin derivative.
+Furthermore, this Poincaré-type bound can be upgraded via Leibniz’s rule and Hölder’s inequality to an $L^p$ version in probability for any $2 \le p < \infty$, bounding the $L^p$ fluctuations of $F$ by the $L^p$ norm of its Malliavin derivative :
+\begin{equation*}
+    \mathbb{E}^{\frac{1}{p}}\abs{F - \mathbb{E}F}^p \lesssim \mathbb{E}^{\frac{1}{p}}\norm{\frac{\partial F}{\partial \xi}}^{p}_{\dot{H}^{-s}}
+\end{equation*}
+Furthermore, for a centered Gaussian ensemble that satisfies $\operatorname{Var}(\xi, \zeta)\leq \norm{\zeta}_{\dot{H}^{-s}}^2$, the variance of a random variable F is dominated by the expectation of the carré-du-champs of its Malliavin derivative :
+\begin{equation*}
+    \norm{\frac{\partial F}{\partial \xi}}^{2}_{\dot{H}^{-s}} = \left(\sup_{\partial \xi} \frac{\partial F}{\norm{\partial \xi}_{\dot{H}^s}}\right)^2.
+\end{equation*}
+So we can reformulate :
+\begin{equation*}
+     \mathbb{E}^{\frac{1}{p}}\abs{F - \mathbb{E}F}^p \lesssim \sup \{\mathbb{E}\partial F \vert \delta\xi \text{ r.v. with }\mathbb{E} \norm{\delta\xi}^{p^*}_{\dot{H}^s} \leq 1 \},
+\end{equation*}
+where $p^*$ is the dual exponent of $p$.
+We will use it to estimate the random variable $F = \Pi^-_{\beta r}(0)$, in the form :
+\begin{equation*}
+    \mathbb{E}^{\frac{1}{p}}\abs{\Pi^-_{\beta r}(0)}^p \lesssim \abs{\mathbb{E}\Pi^-_{\beta r}(0)} + \sup \{\mathbb{E}^{\frac{1}{q}} \abs{\delta \Pi^-_{\beta r}(0)}^q  \vert \delta\xi \text{ r.v. with }\mathbb{E} \norm{\delta\xi}^{p^*}_{\dot{H}^s} \leq 1 \}.
+\end{equation*}
+The argument we will use is based on induction. We will simultaneously prove estimates for all $p$, $q$ in the range $1\leq q < p^* \leq 2\leq p$, so that it will not be a problem to appeal recursively to these estimates with different exponents $q'$, and $p'$.
+In practice, in the induction, we fix $p$, $q$ and $\delta \xi \in \dot{H}^s$ with $\mathbb{E} \norm{\delta\xi}^{p^*}_{\dot{H}^s} \leq 1$.
+
+This formulation enables one to capture the gain in regularity of the model under perturbation by describing the directional Malliavin derivative as a modeled distribution, thereby linking the stochastic estimates directly to pathwise analytical tools such as the reconstruction and integration theorems

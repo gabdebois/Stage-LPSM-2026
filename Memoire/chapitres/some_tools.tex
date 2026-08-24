@@ -1,0 +1,519 @@
+\chapter{Useful tools}
+
+\section{Distributions and Hölder regularity}
+
+As we saw in our heuristic regularity power counting, we will have to work with \emph{functions} of negative regularity, i.e. distributions.
+Consider the space $\mathscr{D}(\mathbb{R}^d) \coloneq C^{\infty}_c(\mathbb{R}^d)$ of smooth functions with compact support on $\R^d.$
+The space of distribution $\mathscr{D}'(\mathbb{R}^d)$ is the dual of $\mathscr{D}(\mathbb{R}^d)$ : a distribution $T$ on $\R^d$ is a linear form $\mathscr{D}(\mathbb{R}^d) \longrightarrow \R$, 
+such that for all compact $K \subset \R^d$, there exists $r_k \in \N$ with 
+$$\abs{T(\phi)}\lesssim \vert \vert \phi \vert \vert_{C^r} \coloneq \max_{\abs{k}\leq r} \vert \vert D^k \phi \vert \vert_{\infty} \quad \forall \phi \in \mathscr{D} $$
+
+We saw that distributions generalise function because every locally integrable function $f$ defines a distribution by integration :
+$$\forall \phi \in \mathscr{D},\quad f(\phi) \coloneq \int_{\R^d} f(x)\phi(x) \dd x .$$
+
+Of course $\mathscr{D}'$ is a vector space. We can also define derivatives of arbitrary order $k = (k_1, \dots, k_d)$ of a distribution $T$ by setting :
+$$\forall \phi \in \mathscr{D},\quad D^k T(\phi) \coloneq (-1)^{\abs{k}}T(D^k \phi).$$
+when $T$ is a differential function, this corresponds to integration by part.
+
+For $\phi \in C^\infty$ and $T \in \mathscr{D}'$, we can define the product $\phi \cdot T$ by :
+$$\forall \psi \in \mathscr{D},\quad (\phi \cdot T) (\psi) \coloneq T(\phi \psi) \quad ( \text{indeed, }\phi \psi \in \mathscr{D}).$$
+But in general, there is no canonical way of multiplying two distriubtions. This is really the heart of the problem of singular SPDEs.
+To solve this, we will need to formalise a notion of regularity for distributions.
+
+\begin{remark}
+    Let $r\in \N$, we denote by $\mathcal{B}^r$ the set of test-function $\phi\in \D$ supported in the unit ball $B(0,1)$ and such that $\norm{\phi}_{C^r}\leq 1$.
+\end{remark}
+
+\begin{definition}[Scaling]
+    For $\phi \in \D, \lambda \in \R, x \in \R^d$, we set 
+    $$\forall y \in \R^d, \quad \phi^\lambda_x(y) \coloneq \lambda^{-d} \phi \left(\frac{y-x}{\lambda}\right)$$
+\end{definition}
+
+\begin{remark}
+    For $\phi,\psi \in \D$, and $x \in \R^d,\lambda>0$, we have $(\phi*\psi)^\lambda_x = \phi^\lambda * \psi^\lambda_x$.
+    
+    Indeed,
+    \begin{align*}
+        \forall y \in \R^d, (\phi*\psi)^\lambda_x (y) &= \lambda^{-d} \int\dd z \phi(z) \psi(\lambda^{-1}(y  - x) - z) \\
+        &= \int \dd z \lambda^{-d} \phi(\lambda^{—1}z) \lambda^{-d} \psi(\lambda^{-1}(y - x - z)) \quad \text{(change of variable }z\leftarrow \lambda z) \\
+        &= \int \dd z \phi^\lambda(z) \psi^\lambda_x(y - z).
+    \end{align*}
+\end{remark}
+
+Another operation on distribution that will be very useful is the convolution by a test-function.
+
+\begin{definition}
+    Let $T\in \D'$ and $\rho \in \D$. Define the function $T*\rho$ by :
+    \begin{equation*}
+        \forall x \in \R^d, \quad (T*\rho)(x) = T(\rho(x - \cdot)).
+    \end{equation*}    
+\end{definition}
+
+\begin{proposition}
+    With the same notation as in the definition, $T*\rho$ is smooth and for all $k \in \N^d$, 
+    \begin{equation*}
+        D^k(T*\rho) = (D^kT) * \rho = T*(D^k\rho)
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    The second equality holds by definiton of the derivative of a distribution. So to prove the proposition, 
+    it suffices to show that $T*\rho$ is differentiable and that for $i \in \{1,\dots,d\}, \quad \partial^{i}(T*\rho) = T*(\partial^{i}).$
+    \begin{equation*}
+        \forall x,y \in \R^d, \quad T*\rho(y) - T*\rho(x) - \sum{i=1}{d} (y_i - x_i) T*(\partial^{i}\rho)(x) = T(\eta_{x,y}),
+    \end{equation*}
+    where $\eta_{x,y} = \rho(y - \cdot) - \rho(x- \cdot) - \sum_{i=1}^{d}(y_i - x_i)\partial^{i}\rho(x- \cdot)$.
+    Fix $x\in \R^d$ and $R>0$. There exists a compact $K$ such that for all $y\in B(x,R)$, the support of $\eta_{x,y}$ is included in $K$.
+    So by definition of a distribution, there exists $r\in \N$ such that :
+    $$\forall y \in B(x,R), \quad \abs{T(\eta_{x,y})}\lesssim \norm{\eta_{x,y}}.$$
+    Now by Taylor's theorem, $\norm{\eta_{x,y}} = o(x-y)$, so $T*\rho$ is differentiable and $\partial^{i}(T*\rho) = T*(\partial^{i}\rho)$ for $i\in \{1,\dots,d\}.$
+\end{proof}
+
+\begin{lemma}
+    Let $\phi \in D$ be a test-function. $T*\rho$ viewed as a distribution ($C^\infty \subset L^\infty_{\text{loc}}$),
+    $$(T*\rho) (\phi) = T(\tilde{\rho}*\phi),$$
+    where $\tilde{\rho} = \rho(-\cdot)$.
+\end{lemma}
+
+\begin{proof}
+    Fix $a<b\in \R$ such that $\operatorname{Supp}(\phi)\subset [a,b]^d.$
+    Let $\delta_n \coloneq \frac{b-a}{2^n}$ and $\mathcal{P}_n \coloneq \{a+i\delta_n \vert i = 0, \dots, 2^n - 1\}.$
+    \begin{align*}
+        (T*\rho) (\phi) &= \int (T*\rho)(x) \phi(x) \dd x \\
+        &= \int T(\rho(x- \cdot)) \phi(x) \dd x \\
+        &= \int_{[a,b]^d} T(\rho(x- \cdot)\phi(x)) \dd x \\
+        &= \lim_{n \to +\infty} T(\underbrace{\sum_{x \in \mathcal{P}_n^d}\delta_n^d \rho(x- \cdot)\phi(x)}_{I_n(\cdot)}) \quad \text{(Riemann sum)}\\
+        &= T(\lim_{n \to +\infty} \sum_{x \in \mathcal{P}_n^d}\delta_n \rho(x- \cdot)\phi(x)) \\
+        &= T(\int\rho(x- \cdot)\phi(x) \dd x)\\
+        &= T(\tilde{\rho}*\phi).
+    \end{align*}
+    The exchange $\lim_n T(I_n) = T(\lim_n I_n)$ is justified by the facts that :
+    \begin{itemize}
+        \item because $[a,b]^d$ and $\operatorname{Supp}(\eta)$ are compact, there exists a compact $K$ such that for all $n\in \N$, $\operatorname{Supp}(\sum_{x \in \mathcal{P}_n^d}\delta_n^d \rho(x- \cdot)\phi(x))\subset K$,
+        \item by definition of a distribution, there exists $r\in \N$ such that T is continuous on $C^\infty(K)$ equiped with $\norm{\cdot}_{C^r}$,
+        \item finally, $\sum_{x \in \mathcal{P}_n^d}\delta_n^d \rho(x- \cdot)\phi(x) \xrightarrow[n\to + \infty]{\norm{\cdot}_{C^r}} \int\rho(x- \cdot)\phi(x) \dd x $ by the Riemann sum property on the successive derivatives.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}[Mollification]
+    Let $T \in \D'$ be a distribution, and $\rho \in \D$ be any test-function such that $\int \rho = 1$.
+    Then, for any test-function $\phi \in \D$, and all $r\in \N$,
+    \begin{equation*}
+        \norm{\phi - \rho^\lambda * \phi}_{C^r} \xrightarrow[\lambda \to 0]{} 0,
+    \end{equation*}
+    and consequently,
+    \begin{equation*}
+        T*\rho^\lambda(\phi) \xrightarrow[\lambda \to 0]{} T(\phi).
+    \end{equation*}
+\end{theorem}
+First, let $r\in \N$ and $k\in \N^d$ such that $\abs{k}\leq r$.
+Differentiating under the integral sign, and knowing $\int \rho = 1$, we have :
+\begin{equation*}
+    \partial^k(\phi - \rho^\lambda * \phi)(x) = \int \rho^\lambda(z) (\partial^k \phi(x)- \partial^k \phi(z - x)) \dd z.
+\end{equation*}
+So that by Taylor's theorem,
+
+\begin{align*}
+    \norm{\phi - \rho^\lambda * \phi}_{C^r} &\leq \norm{\phi}_{C^{r+1}} \int \rho^\lambda(z) \abs{z} \dd z \\
+    &\leq \lambda \norm{\phi}_{C^{r+1}} \int \rho(u) \abs{u} \dd u.
+\end{align*}
+
+Now for the second statement, we proved that $T*\rho^\lambda(\phi) = T(\tilde{\rho}^\lambda*\phi)$ and $\tilde{\rho}^\lambda*\phi \xrightarrow[\lambda \to 0]{\norm{\cdot}_{C^r}} \phi$.
+Additionnaly, we can find a compact $K$ such that for all $\lambda\in (0,1],\quad \operatorname{Supp}(\tilde{\rho}^\lambda*\phi)\subset K$, 
+So as before, the continuity property of $T$ applies.
+
+
+\begin{definition}[$\alpha$-Hölder functions]
+    Let $\alpha \in (0,1)$. We say that a function $f$ is $\alpha$-Hölder if 
+    $$\forall x,y \in \R^d, \abs{f(x)- f(y)} \lesssim \abs{x-y}^\alpha.$$
+    We say that $f$ is locally $\alpha$-Hölder if the constant in the estimate depends on the compact in which we take $x$ and $y$.
+    For $\alpha \in \R_+ \setminus \N$, we say that $f$ is $\alpha$-Hölder if f is $\lfloor \alpha \rfloor$-times differentiable, and
+    $$\norm{f}_\alpha \coloneq \norm{f}_{\infty} + [f]_\gamma < \infty $$
+    where 
+    $$[f]_\gamma \coloneq \sup_{x\in \R^d} \sup_{h\in \R^d} \frac{\abs{f(x+h) - \sum_{\abs{k}<\gamma} \frac{h^k}{k!}\partial^kf(x)}}{\abs{h}^\gamma}.$$
+\end{definition}
+
+We can also define Hölder spaces for negative $\alpha$.
+
+First, given a positive integer $r$, note $B_r$ the set of smooth functions $\phi$ supported in the unit ball, with :
+$$\norm{\phi}_{C^r}\coloneq \sup_{\abs{k}\leq r} \norm{D^k \phi}_\infty \leq 1.$$
+\begin{definition}[Negative Hölder spaces]
+    Let $\alpha<0$. $T$ is $\alpha$-Hölder if 
+    $$\forall \phi \in B_r, \quad \abs{T(\phi^\lambda_x)} \lesssim \abs{\lambda}^\alpha \quad \text{uniformly in } x\in \R^d,\lambda \in (0,1)$$
+    where $r>\lceil - \alpha \rceil$.
+    We can also talk about local $\alpha$-Hölder distribution, when the estimate is uniform in $x \in K$ for all $K$ compact.
+    
+    It will be useful to further generalise this notion by relaxing the uniform control in $x$ and $\lambda$, asking for 
+    $$\norm{\norm{ \sup_{\phi \in B_r}\frac{T(\phi^\lambda_x)}{\abs{\lambda}^\alpha}}_{L^p(x\in \R^d)}}_{L^q(\lambda\in(0,1))} < \infty$$
+    This defines the Besov space $\mathcal{B}^\alpha_{p,q}$.
+\end{definition}
+
+
+\begin{remark}
+    \begin{itemize}
+        \item We have $\mathcal{B}^\alpha_{p,q_1} \hookrightarrow \mathcal{B}^\alpha_{p,q_2}$ for $q_1 \leq q_2.$
+        \item We have $\mathcal{B}^\alpha_{p,q} \hookrightarrow \mathcal{B}^\beta_{p,q}$ for $\beta \leq \alpha$ on compact domains.
+    \end{itemize}
+\end{remark}
+
+
+A very useful lemma allows us to check the finiteness of this scaling norm only for one compactly supported test function $\phi$ with $\int \phi \neq 0.$ and for $\lambda$ on the dyadic scale.
+\begin{lemma}
+    \label{lem:technique1}
+    Let $\alpha<0$. Then $T \in \mathcal{B}^\alpha_{p,q}$ if and only if there exists a compactly supported test-function $\phi$ with $\int \phi \neq 0$ and
+    $$\norm{\norm{\frac{T(\phi^{2^{-n}}_x)}{2^{-n\alpha}}}_{L^p(x\in \R^d)}}_{l^q(n)} < \infty.$$
+\end{lemma}
+ We present the proof because it displays ideas that will reappear later, in reconstruction arguments for instance.
+\begin{proof}
+    The direct implication is clear. 
+    Fix $T \in D'$ and $\phi$ such that the statement holds, and let's prove that $T \in \mathcal{B}^\alpha_{p,q}$.
+    Fix $r\in \N$ such that $r>-\alpha$, $\lambda_0, \dots,\lambda_{r-1} \in \R^*_+$ distincts, $c_0,\dots,c_{r-1} \in \R$, and
+    \begin{equation*}
+        \hat{\phi} \coloneq \frac{1}{\int \phi} \sum_{i=0}^{r-1} c_i \phi^{\lambda_i}
+    \end{equation*}
+    We can tune the constants $c_i$ so that 
+    \begin{itemize}
+        \item $\int \hat{\phi} = 1$,
+        \item $\forall k, 1\leq \abs{k}\leq r-1, \quad \int x^k \hat{\phi}(x) \dd x = 0$, 
+    \end{itemize}
+    Indeed, 
+    \begin{align*}
+        \forall k \in \N^d, \abs{k}\leq r-1, \int x^k \hat{\phi}(x) \dd x = \delta_{0,k} &\iff \frac{1}{\int \phi} \sum_{i=0}^{r-1} c_i \int x^k \phi^{\lambda_i} (x) \dd x = \delta_{0,k} \\
+        & \iff \frac{1}{\int \phi} \sum_{i=0}^{r-1} c_i \lambda_i^{\abs{k}} \int \phi = \delta_{0,k}  \quad \text{(change of variable)}\\
+        & \iff \sum_{i=0}^{r-1} c_i \lambda_i^{\abs{k}} = \delta_{0,k}
+    \end{align*}
+
+    Because the $\lambda_i$ are distincts, this is an inversible Vandermonde system.
+    Additionnaly, by choosing small $\lambda_i$s, we see that we can shrink the support of of $\hat{phi}$ so that it is included in $B(0,\frac{1}{2})$.
+    
+    
+    
+    Let $\lambda_i = 2^{m_i}$ for $m_i\in \N$ large enough.
+    
+    \begin{align*}
+        \norm{\norm{\frac{T(\hat{\phi}^{2^{-n}}_x)}{2^{-n\alpha}}}_{L^p(x\in \R^d)}}_{l^q(n)} &\lesssim \sum_{i=0}^{r-1} \norm{\norm{\frac{T(\phi^{2^{-n-m_i}}_x)}{2^{-n\alpha}}}_{L^p(x\in \R^d)}}_{l^q(n)} \quad \text{(triangle inequality)}\\
+        &\lesssim \sum_{i=0}^{r-1} \norm{\norm{\frac{T(\phi^{2^{-n-m_i}}_x)}{2^{-(n+m_i)\alpha}}}_{L^p(x\in \R^d)}}_{l^q(n)} \\
+        &<\infty
+    \end{align*}
+
+    Let $\psi \in D'$ be any test function,and $\rho$ a mollifier with $\int \rho = 1$.
+    We know that $\int T(\rho^{2^{-m}}_z) \psi (z)  \dd z  = T(\rho^{2^{-m}}*\psi) \xrightarrow[m \to \infty]{} T(\psi)$.
+    So we can write the telescopic sum :
+    \begin{equation*}
+        T(\psi^{2^{-n}}_x) = \int T(\rho^{2^{-n}}_z) \psi^{2^{-n}}_x (z) \dd z + \sum_{m\geq n} \int T((\rho^{2^{-m-1}} - \rho^{2^{-m}})_z) \psi^{2^{-n}}_x (z) \dd z \\
+    \end{equation*}
+    Now we use $\rho \coloneq \hat{\phi}^2*\hat{\phi}$, motivated by the fact that we can write the increment in convolution form : $\rho^{2^{-m-1}} - \rho^{2^{-m}} = (\rho^{\frac{1}{2}} - \rho)^{2^{-m}} = \hat{\phi}^{2^{-m}}*\check{\phi}^{2^{-m}}$ where $\check{\phi}= \hat{\phi}^{\frac{1}{2}} - \hat{\phi}^2$.
+    Plugging in the equation :
+    \begin{align*}
+        T(\psi^{2^{-n}}_x) &= \int T(\hat{\phi}^{2^{-n}}*\hat{\phi}^{2^{-n+1}}_z) \psi^{2^{-n}}_x (z) \dd z + \sum_{m\geq n} \int T(\hat{\phi}^{2^{-m}}*\check{\phi}^{2^{-m}}_z) \psi^{2^{-n}}_x (z) \dd z \\
+        &= \int T(\hat{\phi}^{2^{-n}}_z) (\hat{\phi}^{2^{-n+1}}*\psi^{2^{-n}}) (z - x) \dd z + \sum_{m\geq n} \int T(\hat{\phi}^{2^{-m}}_z) (\check{\phi}^{2^{-m}}*\psi^{2^{-n}}) (z - x) \dd z \\
+        &= \int_{B(0,2^{-n+1})} T(\hat{\phi}^{2^{-n}}_{y+x}) (\hat{\phi}^{2^{-n+1}}*\psi^{2^{-n}}) (y) \dd y + \sum_{m\geq n} \int_{B(0,2^{-n+1})} T(\hat{\phi}^{2^{-m}}_{y+x}) (\check{\phi}^{2^{-m}}*\psi^{2^{-n}}) (y) \dd y  \\
+    \end{align*}
+
+    The last line is justified by the fact that $y =z - x$, and that $y \mapsto T(\hat{\phi}^{2^{-n}}_{y+x})$ is supported in $B(0,2^{-n+1})$.
+    To continue, we need the following lemma :
+    \begin{lemma}
+    \label{lem:technique2}
+    Assume that $\nu \in D$ is a test function that cancels polynomials up to degree $r-1 \in \N$ : $\forall 0\leq k \leq r-1, \int x^k \nu(x) \dd x =0$.
+    Then for any test function $\eta \in D$ and $\lambda >0$,
+    \begin{equation*}
+        \norm{\nu^\lambda *\eta }_\infty \lesssim \norm{\eta}_{C^r} \norm{\nu}_{L^1} \lambda^r
+    \end{equation*}
+    where the constant depends on the support of $\nu$ and $r$.
+    \end{lemma}
+    \begin{proof}
+        Fix $\eta \in D$ and $\lambda >0$.
+        Denote for all $x,y \in \R^d, \quad T_x^{r-1}\eta (y) = \sum_{\abs{k}\leq r-1 } \frac{D^k \eta (x)}{k!} (y-x)^k$ the Taylor polynomial at $x$ up to order $r-1$ of $\eta$.
+        
+        By Taylor's theorem, $\abs{(\eta - T_x^r\eta)(y)} \leq \frac{\norm{\eta}_{C^r}}{r!} \abs{y-x}^r$.
+
+        \begin{align*}
+            \forall x \in \R^d,\quad \abs{\nu^\lambda *\eta (x)} &\leq \abs{\int \nu^\lambda (y) (\eta - T_x^r\eta)(x-y) \dd y + \underbrace{\int \nu^\lambda (y) (T_x^r\eta)(x-y) \dd y}_{=0 \text{ by hypothesis}}} \\
+            &\leq \int \abs{\nu^\lambda (y)} \abs{(\eta - T_x^r\eta)(x-y)} \dd y \\
+            &\leq \int \abs{\nu^\lambda (y)} \frac{\norm{\eta}_{C^r}}{r!} \abs{y}^r \dd y \\
+            &\leq \frac{\norm{\eta}_{C^r}}{r!} \lambda^r \int_K \abs{\nu (z)} \abs{z}^r \dd z \\
+            &\leq \frac{1}{r!}(\sup_{z\in K} \abs{z}^r)  \norm{\eta}_{C^r} \norm{\nu}_{L^1} \lambda^r \quad (\text{uniform bound in }x)
+        \end{align*}
+        where $K$ denotes the (compact) support of $\nu$.
+    \end{proof}
+
+    Thanks to this, we have :
+    \begin{empheq}[left=\empheqlbrace]{align*}
+    \norm{\hat{\phi}^{2^{-n+1}}*\psi^{2^{-n}}}_\infty &\lesssim 2^{nd} \norm{\psi}_\infty \norm{\hat{\phi}}_{L^1} \leq2^{nd} \norm{\psi}_{C^r} \norm{\hat{\phi}}_{L^1}  \\
+    \norm{\check{\phi}^{2^{-m}}*\psi^{2^{-n}}}_\infty &\lesssim 2^{nd} 2^{(n-m)r} \norm{\psi}_{C^r} \norm{\check{\phi}}_{L^1}
+    \end{empheq} 
+    As a consequence, denoting $B_n = B(0,2^{-n})$,
+    \begin{equation*}
+        \sup_{\psi \in B^r} \abs{T(\psi^{2^{-n}}_x)} \lesssim 2^{nd} \norm{\hat{\phi}}_{L^1} \int_{B_{n-1}} T(\hat{\phi}^{2^{-n}}_{y+x}) \dd y + \sum_{m\geq n} 2^{nd + (n-m)r} \norm{\check{\phi}}_{L^1} \int_{B_{n-1}} T(\hat{\phi}^{2^{-m}}_{y+x}) \dd y.
+    \end{equation*}
+    Taking $L^p$-norm in $x$, we get by triangle inequality :
+    \begin{equation*}
+        \norm{\sup_{\psi \in B^r} \abs{T(\psi^{2^{-n}}_x)}}_{L^p(x)} \lesssim 2^{nd} \norm{\hat{\phi}}_{L^1} \int_{B_{n-1}} \norm{T(\hat{\phi}^{2^{-n}}_{y+x})}_{L^p(x)} \dd y + \sum_{m\geq n} 2^{nd + (n-m)r} \norm{\check{\phi}}_{L^1} \int_{B_{n-1}} \norm{T(\hat{\phi}^{2^{-m}}_{y+x})}_{L^p(x)} \dd y.
+    \end{equation*}
+    Now in these integrals, the integrand is actually constant, we get :
+    \begin{equation*}
+        \norm{\sup_{\psi \in B^r} \abs{T(\psi^{2^{-n}}_x)}}_{L^p(x)} \lesssim \norm{T(\hat{\phi}^{2^{-n}}_{x})}_{L^p(x)} + \sum_{m\geq n} 2^{(n-m)r} \norm{T(\hat{\phi}^{2^{-m}}_{x})}_{L^p(x)}.
+    \end{equation*}
+    Then, dividing by $2^{-n\alpha}$ and taking the $l^q$-norm in $n$,
+
+     \begin{equation*}
+        \norm{T}_{\mathcal{B}^\alpha_{p,q}} \lesssim \norm{\norm{\frac{T(\hat{\phi}^{2^{-n}}_{x})}{2^{-n\alpha}}_{L^p(x)}}}_{l^q(n)} +  \norm{\sum_{m\geq n} 2^{(n-m)(r+\alpha)} \norm{\frac{T(\hat{\phi}^{2^{-m}}_{x})}{2^{-m\alpha}}_{L^p(x)}}}_{l^q(n)}.
+    \end{equation*}
+    And finally, because we chose $r>-\alpha$, applying Jensen's inequality, then using Fubini for the sums in $n$ and $m$, we proved that $\norm{T}_{\mathcal{B}^\alpha_{p,q}}<\infty$.
+
+
+
+
+
+    
+\end{proof}
+
+
+Juste like with Sobolev spaces with Sobolev embeddings, we can trade regularity for integrability via the following theorem.
+
+\begin{theorem}
+    Let $q>0$, $0<p_0 \leq p_1 \leq \infty$, and $-\infty < s_1 \leq s_0 < \infty$.
+    Then,
+    $$s_0 - \frac{n}{p_0} = s_1 - \frac{n}{p_1} \implies \mathcal{B}^{s_0}_{p_0,q} \hookrightarrow \mathcal{B}^{s_1}_{p_1,q}.$$
+\end{theorem}
+
+See \cite{Tri83} for a general proof. We are only going to use this in a specific case where the proof will be easier.
+
+We said that we could not multiply two distributions in general, but Hölder regularity gives a simple sufficient condition.
+
+
+    
+
+
+
+\section{Random distributions and noise}
+
+\begin{definition}[Random distributions]
+    A random distribution $T$ is a map $(\Omega, \mathcal{F}, \mathbb{P}) \longrightarrow \D'$ such that for all test-function $\phi \in \D$,
+    $T(\phi)\coloneq T \circ \text{ev}_\phi : (\Omega, \mathcal{F}, \mathbb{P}) \longrightarrow \R$ is measurable (i.e. a real random variable).
+\end{definition}
+
+The forcing term $\xi$ in our equation is a random distribution. A common choice is white noise, let us describe it's law.
+
+
+\section{Germs and reconstruction}
+
+We return to our problem of defining the product between a distribution and a function. 
+Assume that our function $f$ has (positive) regularity $\alpha$, and our distribution $g$ negative regularity $\beta$.
+If it is not clear how we could define the product $fg$ globally, we know that around a point $x$, $f$ is well-approximated by its Taylor polynomial at $x$ : $T_x^\alpha f = \sum_{\abs{k}<\alpha}\frac{f^{(k)(x)}}{k!} (\cdot - x)^k$.
+Of course as a polynomial, $T_x^\alpha f$ is smooth, so the product $(T_x^\alpha f) g$ is well-defined, and is expected to approximate the formal $fg$ around $x$.
+The way of defining $fg$ will be to reconstruct a global distribution from the local approximations $T_x^\alpha f$, for $x \in \R^d$.
+
+\begin{definition}[Germs of distribution]
+    A germ of distribution is a family of distribution $(F_x)_{x \in \R^d}$ indexed by our space variable. Additionnaly, we require for technical reason that for all test-function $\phi \in \D$, the map $x\mapsto F_x(\phi)$ should be measurable.
+\end{definition}
+
+\begin{example}
+    $((T_x^\alpha f)g)_{x\in \R^d}$ is a germ of distributions.
+\end{example}
+
+
+\begin{theorem}[Reconstruction]
+    \label{thm:germ_reconstruction}
+    Let $(F_x)_{x \in \R^d}$ be a germ. Let $\gamma > 0$, and assume that for some $\phi \in \D$ with $\int \phi \neq 0$ and some $\alpha < \gamma$, we have the coherence condition :
+    \begin{equation}
+        \label{eq:coherence1}
+        \norm{F}_{\alpha,\gamma;\phi} \coloneq \sup_{x,y \in \R^d} \sup_{\lambda >0 } \; \frac{\abs{(F_x - F_y)(\phi^\lambda_x)}}{\lambda^\alpha (\lambda + \abs{x-y})^{\gamma - \alpha}} < \infty.
+    \end{equation}
+    Then, there exists a unique distribution $\mathcal{R}(F) \in \D'$ called the reconstruction of $F$, that is locally well approximated by the germ :
+    \begin{equation*}
+        \sup_{x\in \R^d} \sup_{\lambda > 0} \sup_{\psi \in \mathcal{B}^r} \frac{\abs{(\mathcal{R}(F)-F_x)(\psi_x^\lambda)}}{\lambda^\gamma} \lesssim \norm{F}_{\alpha,\gamma;\eta},
+    \end{equation*}
+    with $r\in \N, r>-\alpha$. The implicit constant depending only on $\alpha, \gamma, r,\phi$ and $d$.
+\end{theorem}
+
+\begin{remark}
+    \begin{itemize}
+        \item The coherence condition \eqref{eq:coherence1} can be interpreted as follows : the regularity of the increments $F_x - F_y$ is $\alpha$, and when setting $\abs{x-y}\leq \lambda \rightarrow 0$, the increment tested on $\eta^\lambda_x$ behaves like $\lambda^\gamma$. This quantity goes to $0$ because $\gamma >0$, this is a continuity condition on $x \mapsto F_x$.
+        \item This is one version of a reconstruction theorem, in negative Hölder space, but we will present another example in Besov spaces.
+        \item If we have also an homogeneity bound on the germ, meaning there exists $\beta \in \R, \; \alpha<\beta\leq\gamma$ such that $\norm{F}_{\text{coh,}\beta}\coloneq \sup_{x\in \R^d} \sup_{\lambda > 0} \sup_{\psi \in \mathcal{B}^r} \frac{\abs{F_x(\psi_x^\lambda)}}{\lambda^\beta} < \infty$, then by triangle inequality, we see that :
+        \begin{equation*}
+            \sup_{x\in \R^d} \sup_{\lambda > 0} \sup_{\psi \in \mathcal{B}^r} \frac{\abs{\mathcal{R}(F)(\psi_x^\lambda)}}{\lambda^\beta} \leq \norm{F}_{\text{hom,}\beta} + \norm{F}_{\alpha,\gamma;\phi} < \infty.
+        \end{equation*}
+        Thus the reconstruction is $\beta \wedge \gamma$-Hölder.
+    \end{itemize}
+\end{remark}
+
+We return to the problem of mutliplying a distribution with a non-smooth function.
+\begin{corollary}[Young's multiplication]
+    Let $\alpha \in \R^*_+\setminus\N$, $\beta <0$ be such that $\alpha+\beta>0$. 
+    Then, there exists a unique bilinear map $C^\alpha \times C^\beta \longrightarrow C^\alpha$, that extends the multiplication operator $C^\infty \times \D' \longrightarrow \D'$.
+\end{corollary}
+
+\begin{proof}
+    Let $f\in C^\alpha$ and $g\in C^\beta$. Recall that we introduced the germ $(F_x \coloneq (T_x^\alpha f)g)_{x\in \R^d}$ and that we aimed to solve the problem of multiplication by applying reconstruction to it.
+    We will check that this germ is $(\beta, \alpha+\beta)$-coherent :
+    \begin{align*}
+        \forall x,y \in R^d, \quad F_x - F_y &= \left( \sum_{\abs{k}<\alpha} \frac{D^kf(x)}{k!} (\cdot - x)^k - \sum_{\abs{k}<\alpha} \frac{D^kf(y)}{k!} (\cdot - y)^k \right) g \\
+        &= \left( \sum_{\abs{k}<\alpha} \frac{D^kf(x)}{k!} (\cdot - x)^k - \sum_{\abs{k}<\alpha} \frac{D^kf(y)}{k!} \sum_{\abs{l}\leq \abs{k}} \binom{k}{l} (\cdot -x)^{l}(x-y)^{k-l} \right) g \\
+        &= \left( \sum_{\abs{k}<\alpha} \left(\frac{D^kf(x)}{k!} - \sum_{\abs{k}\leq \abs{j} < \alpha} \frac{D^jf(y)}{j!} \binom{j}{k} (x-y)^{j-k} \right) (\cdot - x)^k \right) g \\
+        &= \left( \sum_{\abs{k}<\alpha} \frac{1}{k!} \left(D^kf(x) - \sum_{\abs{j} < \alpha - \abs{k}}  \frac{D^{j+k} f(y)}{j!} (x-y)^{j} \right) (\cdot - x)^k \right) g \\
+    \end{align*}
+    Now f is in $C^\alpha$, so for $k$ such that $\abs{k}<\alpha$, $D^kf$ is in $C^{\alpha - \abs{k}}$, and
+    $$\forall x,y \in \R^d, \quad\abs{D^kf(x) - \sum_{\abs{j} < \alpha - \abs{k}}  \frac{D^{j+k} f(y)}{j!} (x-y)^{j}} \leq [f]_{\alpha} \abs{x-y}^{\alpha -\abs{k}}.$$
+    As a result, for any test-function $\eta\in \D$, $\lambda>0$ and $x,y\in \R^d$,
+    \begin{align*}
+        \abs{(F_y - F_x)(\eta^\lambda_x)} &\leq \sum_{\abs{k}<\alpha} \frac{1}{k!} [f]_{\alpha} \abs{x-y}^{\alpha -\abs{k}} \abs{g((\cdot - x)^k \eta^\lambda_x)} \\
+        &\leq \sum_{\abs{k}<\alpha} \frac{1}{k!} [f]_{\alpha} \abs{x-y}^{\alpha -\abs{k}} \lambda^{\abs{k}} \abs{g(((\cdot)^k \eta)^\lambda_x)} \\
+        &\leq [f]_{\alpha} \norm{g}_\beta \sum_{\abs{k}<\alpha} \frac{1}{k!} \abs{x-y}^{\alpha -\abs{k}} \lambda^{\beta + \abs{k}}  \quad (\text{by definition of }\beta\text{-Hölder norm})\\
+        &\lesssim [f]_{\alpha} \norm{g}_\beta \lambda^\beta (\lambda + \abs{x-y})^{\alpha+\beta}.
+    \end{align*}
+    
+    $\alpha+\beta>0$ so we can apply the reconstruction theorem : there exists a unique $fg \coloneq \mathcal{R}(F)\in \D'$, such that
+    \begin{equation*}
+        \sup_{x\in \R^d} \sup_{\lambda > 0} \sup_{\phi \in \mathcal{B}^r} \frac{\abs{(fg - (T_x^\alpha f) g)(\phi_x^\lambda)}}{\lambda^{\alpha+\beta}} \lesssim \norm{F}_{\alpha,\gamma;\eta}
+    \end{equation*}
+
+    Also, 
+
+    \begin{align*}
+        \abs{(F_x)(\eta^\lambda_x)} &\leq \sum_{\abs{k}<\alpha} \abs{\frac{D^kf(x)}{k!}} \abs{g((\cdot - x)^k\eta^\lambda_x)}\\
+        &\leq \sum_{\abs{k}<\alpha} \abs{\frac{D^kf(x)}{k!}} \lambda^{\abs{k}} \abs{g(((\cdot)^k\eta)^\lambda_x)}\\
+        &\leq \norm{g}_\beta \sum_{\abs{k}<\alpha} \abs{\frac{D^kf(x)}{k!}} \lambda^{\abs{k}+\beta} \\
+        &\lesssim \norm{g}_\beta \norm{f}_{C^\alpha} \lambda^{\alpha+\beta} \quad \text{uniformly in }\eta, \; x \text{ and }\lambda.
+    \end{align*}
+    So by the third item in the remark above, $fg$ is $\alpha+\beta$-Hölder.
+    Additionnaly, the map, $(f,g)\mapsto (T_x^\alpha f) g$ is bilinear, and $\mathcal{R}:F_x \mapsto \mathcal{R}(F)$ is linear (by easily seen by uniqueness). So $(f,g)\mapsto fg$ is bilinear.
+    It remains to check that it extends the multiplication map. For this, it is enough to check that the product verifies the reconstruction bound when $f \in C^\infty$.
+    
+    Suppose $f \in C^\infty$.
+
+    \begin{align*}
+        \forall x \in \R^d, \lambda>0, \phi \in \mathcal{B}^r, \abs{(fg - (T_x^\alpha f)g)(\phi^\lambda_x)} &= \abs{g((f - (T_x^\alpha f))(\phi^\lambda_x))} \\
+        &= \abs{g(((\sum_{\abs{k} = \lfloor \alpha \rfloor + 1}R_k(\cdot)(\cdot - x)^k ))(\phi^\lambda_x))} \\
+        &= \lambda^{\lfloor \alpha \rfloor + 1} \abs{g((((\sum_{\abs{k} = \lfloor \alpha \rfloor + 1}R_k(\cdot + x)^{\lambda^{-1}}(\cdot)^k ))(\phi))^\lambda_x)} \\
+        &\lesssim \lambda^{\alpha + \beta} \quad (g \in C^\beta)
+    \end{align*}
+    The second line is justified by Taylor's theorem because $f$ is smooth, $R_k(\cdot)$ is smooth and vanishes at $x$.
+\end{proof}
+
+\begin{proof}
+    Fix $(F_x)_{x\in \R^d}$ and $\phi$ as the statement of the theorem.
+
+\textit{Step 1 : Uniqueness}
+
+Let $R_1$ and $R_2$ be two distributions such that the reconstruction bound holds :
+\begin{equation*}
+        \sup_{x\in \R^d} \sup_{\lambda > 0} \sup_{\psi \in \mathcal{B}^r} \frac{\abs{(R_i-F_x)(\psi_x^\lambda)}}{\lambda^\gamma} \lesssim \norm{F}_{\alpha,\gamma;\phi}, \quad i=1,2.
+\end{equation*}
+Setting $R = R_1 - R_2$, by triangle inequality, we have :
+\begin{equation*}
+        \sup_{x\in \R^d} \sup_{\lambda > 0} \sup_{\psi \in \mathcal{B}^r} \frac{\abs{R(\psi_x^\lambda)}}{\lambda^\gamma} <\infty .
+\end{equation*}
+In particular, because $\gamma>0$, for $\psi \in \mathcal{B}^r, \int \psi = 1$ a mollifier, $\sup_{x\in \R^d} \abs{R(\phi_x^\lambda)}\xrightarrow[\lambda \to 0]{} 0.$
+
+Let $\eta \in \D$ be any test-function.
+\begin{align*}
+    R(\eta) &= \lim_{\lambda \to 0} \int R(\psi^\lambda_x) \eta(x) \dd x \quad \text{(mollification)}\\
+    &=0 \quad \text{(by uniform convergence)}
+\end{align*}
+So we proved that $R=0$.
+
+\textit{Step 2 : Existence}
+
+We want to construct a distribution well-approximated by $F_x$ close to $x$. Let $\rho \in \D$ be a test-function such that $\int \rho =1$, to be specified later.
+By analogy with the mollification property, we want to define for all $n\in \N$ and $\eta \in \D$, $R_n (\eta) \coloneq \int F_x * \rho^{2^{-n}}(x)\eta(x) \dd x$ and hope to show that $R_n$ has a limit when $n$ goes to $+\infty$.
+
+The function $R_n : x\mapsto F_x * \rho^{2^{-n}}(x)$ is well-defined and measurable. Indeed, for all $y\in \R^d, \quad x \mapsto F_x*\rho^{2^{-n}}(y) =F_x(\rho^{2^{-n}}(y - \cdot)) $ is measurable by definition of a germ, and for all $x\in \R^d, \quad y\mapsto F_x*\rho^{2^{-n}}(y)$ is continuous by the mollification property.
+
+We want to estimate the difference $\mathcal{R}(F) - F_x$ so it is natural to introduce the mollified version : 
+\begin{equation*}
+    \forall x,z \in \R^d,\;n\in \N, \quad f_{x,n} (z) = R_n(z) - F_x*\rho^{2^{-n}}(z) = (F_z - F_x)*\rho^{2^{-n}}(z).
+\end{equation*}
+Fix $x\in \R^d$. $f_{x,n}$ is a measurable function. We want to show that it converges to a distribution when $n$ goes to $+\infty$.
+
+\begin{equation*}
+    \forall z\in \R^d, \quad (f_{x,n+1} - f_{x,n})(z) = (F_z - F_x)* (\rho^{2^{-n - 1}} - \rho^{2^{-n}})(z)
+\end{equation*}
+
+Just as in the proof of the technical lemma \ref{lem:technique1}, 
+we define $\hat{\phi} \coloneq \frac{1}{\int \phi} \sum_{i=0}^{r-1} c_i \phi^{\lambda_i}$ for suitable constants $(c_i),\;(\lambda_i)$, and $\rho \coloneq \hat{\phi}^2*\hat{\phi}$, so that we can write the increment in convolution form~: $\rho^{2^{-m-1}} - \rho^{2^{-m}} = (\rho^{\frac{1}{2}} - \rho)^{2^{-m}} = \hat{\phi}^{2^{-m}}*\check{\phi}^{2^{-m}}$ where $\check{\phi}\coloneq \hat{\phi}^{\frac{1}{2}} - \hat{\phi}^2$.
+Recall that $\int \hat{\phi} = 1$ so that $\int \rho = 1$ : we can use it as our mollifier.
+Additionnaly, $\forall k, 1\leq \abs{k}\leq r-1, \quad \int x^k \hat{\phi}(x) \dd x = 0$ where we fixed $r\in N, \; r>-\alpha$, and the same goes trivially for $\check{\phi}$.
+Finally, recall that the coherence bound is verified with $\hat{\phi}$.
+
+\begin{align*}
+    \forall z\in \R^d, (f_{x,n+1} - f_{x,n})(z) &= (F_z - F_x)*(\hat{\phi}^{2^{-n}}*\check{\phi}^{2^{-n}})(z)\\
+    &= (F_z - F_x)((\hat{\phi}^{2^{-n}}*\check{\phi}^{2^{-n}})(z-\cdot)) \\
+    &= (F_z - F_x)*\tilde{\hat{\phi}}^{2^{-n}} ((\check{\phi}^{2^{-n}})(z-\cdot)) \\
+    &= \int (F_z - F_x)(\hat{\phi}^{2^{-n}}_y) (\check{\phi}^{2^{-n}})(z-y) \dd y \\
+    &= \int (F_y - F_x)(\hat{\phi}^{2^{-n}}_y) (\check{\phi}^{2^{-n}})(z-y) \dd y  \quad (\eqcolon g'_{x,n}(z))\\
+    & \quad \quad  + \int (F_z - F_y)(\hat{\phi}^{2^{-n}}_y) (\check{\phi}^{2^{-n}})(z-y) \dd y \quad (\eqcolon g''_{x,n}(z))\\
+\end{align*}
+
+We can estimate the first integral with the coherence bound.
+Let $\psi \in \D$ be any test-function. Fix a compact $K$ such that $\operatorname{Supp}(\psi)\subset K$.
+Then $\operatorname{\check{\phi}^{2^{-n}}*\tilde{\psi}(y)} \subset \bar{K}_1$ where $\bar{K}_1 \coloneq \{x \in \R^d \vert d(x,K)\leq 1\}$ is compact.
+We can compute :
+\begin{align*}
+    \abs{g'_{x,n}(\psi)} & = \abs{\int \dd z \psi(z) \int (F_y - F_x)(\hat{\phi}^{2^{-n}}_y) (\check{\phi}^{2^{-n}})(z-y) \dd y} \\
+    & = \abs{\int \dd y (F_y - F_x)(\hat{\phi}^{2^{-n}}_y) (\check{\phi}^{2^{-n}})*\tilde{\psi}(y)} \quad (\text{Fubini, justified a posteriori.}) \\
+    & \lesssim \norm{F}_{\alpha, \gamma ; \phi} \int_{\bar{K}_1} \dd y 2^{-n\alpha}(2^{-n}+ \abs{x - y})^{\gamma - \alpha} \abs{\check{\phi}^{2^{-n}}*\tilde{\psi}(y)} \\
+    &\lesssim 2^{-n\alpha}\norm{F}_{\alpha, \gamma ; \phi} \norm{\check{\phi}^{2^{-n}}*\tilde{\psi}}_\infty \\
+    &\lesssim 2^{-n\alpha} 2^{-nr}\norm{F}_{\alpha, \gamma ; \phi}\norm{\psi}_{C^r} < \infty  \quad \text{by lemma \ref{lem:technique2}} \\
+\end{align*}
+The finiteness of the left-hand side justifies a posteriori the computation of $g'_{x,n}(\psi)$ which didn't make sense a priori because we didn't prove it was locally integrable.
+
+The second term is easier because $(\check{\phi}^{2^{-n}})(z-y)$ forces $\abs{z-y}\leq 2^-n$ : 
+\begin{align*}
+    \forall z \in \R^d, \quad \abs{g'_{x,n}(z)} &\leq \norm{\check{\phi}}_{L^1} \sup_{\abs{z-y}\leq 2^-n} \abs{(F_z - F_y)(\hat{\phi}^{2^{-n}}_y)} \\
+    &\lesssim 2^{-n\alpha}(2\times2^{-n})^{\gamma - \alpha}\norm{F}_{\alpha, \gamma ; \phi} \\
+    &\lesssim 2^{-n \gamma}\norm{F}_{\alpha, \gamma ; \phi} \quad (\text{uniformly in z}).
+\end{align*}
+
+In turn, we showed that $f_{x,n+1} - f_{x,n}$ is locally integrable and that for any test-function $\psi\in \D$ and $K$ compact such that $\operatorname{Supp}(\psi)\subset K$ :
+\begin{equation*}
+    \abs{(f_{x,n+1} - f_{x,n})(\psi)} \lesssim \norm{F}_{\alpha, \gamma ; \phi}\norm{\psi}_{C^r} (2^{-n (\alpha +r)} + 2^{-n \gamma})
+\end{equation*}
+
+As a result, because $\gamma, r+\alpha >0$, $f_x = f_{x,l} + \sum_{n=l}^{+\infty}(f_{x,n+1} - f_{x,n})$ is a well-defined distribution of order $r$ (the formula is true for any $l\in \N$).
+And obviously $(f_{x,k})_k$ converges to $f_x$.
+Recall that $R_n(z) = f_{x,n} (z) + F_x*\rho^{2^{-n}}(z)$. By the mollication lemma, $z \mapsto F_x*\rho^{2^{-n}}(z)$ is a smooth function, converging as a distribution to $F_x$.
+So $R_n$ is a locally integrable function converging as a distribution to a limit noted $\mathcal{R}(F)$.
+We have the formula :
+
+\begin{equation*}
+    \forall l\in \N,\quad  \mathcal{R}(F) = F_x + f_{x,l} + \sum_{n=l}^{+\infty}(f_{x,n+1} - f_{x,n}).
+\end{equation*}
+
+We still have to prove the reconstruction bound.
+Let $\psi \in B^r$, $\lambda >0$ and $l\in \N$,
+
+\begin{align*}
+    f_{x,l}(\psi_x^\lambda) &= \int \dd z f_{x,l}(z) \psi^\lambda(z - x) \\
+    &= \int \int \dd z  \dd y (F_z - F_x)*(\hat{\phi}^{2^{-l}})(y)  \hat{\phi}^{2^{-l+1}}(z-y) \psi^\lambda(z - x) \\
+\end{align*}
+
+So by the coherence bound, for all $l\in \N$ such that $l\geq \operatorname{log}_2 (\lambda)$,
+
+\begin{align*}
+    \abs{f_{x,l}(\psi_x^\lambda)} &\lesssim \norm{F}_{\alpha,\gamma;\phi} \int \int \dd z  \dd y 2^{-l\alpha}(2^{-l}+\abs{x - z})^{\gamma - \alpha}  \abs{\hat{\phi}^{2^{-l+1}}(z-y)} \abs{\psi^\lambda(z - x)} \\
+    &\lesssim \norm{F}_{\alpha,\gamma;\phi} \lambda^{\alpha} \int \int \dd z  \dd y (2^{-l}+\abs{x - z})^{\gamma - \alpha}  \abs{\hat{\phi}^{2^{-l+1}}(z-y)} \abs{\psi^\lambda(z - x)} \\
+\end{align*}
+
+$\hat{\phi}^{2^{-l+1}}$ is supported in $B(0,2^{-l})$, so that on the domain of the integral, $\abs{x - z}\leq \lambda$. As a result :
+
+\begin{align*}
+    \abs{f_{x,l}(\psi_x^\lambda)} &\lesssim \norm{F}_{\alpha,\gamma;\phi} \lambda^{\gamma} \int \int \dd z  \dd y \abs{\hat{\phi}^{2^{-l+1}}(z-y)} \abs{\psi^\lambda(z - x)} \\
+    &\lesssim \norm{F}_{\alpha,\gamma;\phi} \lambda^{\gamma} \norm{\hat{\phi}^{2^{-l+1}}}_{L^1} \norm{\psi^\lambda}_{L^1} \\
+    &\lesssim \norm{F}_{\alpha,\gamma;\phi} \lambda^{\gamma} \norm{\hat{\phi}}_{L^1} \norm{\psi}_{L^1} \\
+    &\lesssim \norm{F}_{\alpha,\gamma;\phi} \lambda^{\gamma} 
+\end{align*}
+
+Taking $l\rightarrow +\infty$, we recover the reconstruction bound.
+
+
+
+
+
+
+
+
+
+
+\end{proof}
