@@ -119,7 +119,7 @@ So that by Taylor's theorem,
 \end{align*}
 
 Now for the second statement, we proved that $T*\rho^\lambda(\phi) = T(\tilde{\rho}^\lambda*\phi)$ and $\tilde{\rho}^\lambda*\phi \xrightarrow[\lambda \to 0]{\norm{\cdot}_{C^r}} \phi$.
-Additionnaly, we can find a compact $K$ such that for all $\lambda\in (0,1],\quad \operatorname{Supp}(\tilde{\rho}^\lambda*\phi)\subset K$, 
+Additionaly, we can find a compact $K$ such that for all $\lambda\in (0,1],\quad \operatorname{Supp}(\tilde{\rho}^\lambda*\phi)\subset K$, 
 So as before, the continuity property of $T$ applies.
 
 
@@ -184,7 +184,7 @@ A very useful lemma allows us to check the finiteness of this scaling norm only 
     \end{align*}
 
     Because the $\lambda_i$ are distincts, this is an inversible Vandermonde system.
-    Additionnaly, by choosing small $\lambda_i$s, we see that we can shrink the support of of $\hat{phi}$ so that it is included in $B(0,\frac{1}{2})$.
+    Additionaly, by choosing small $\lambda_i$s, we see that we can shrink the support of of $\hat{phi}$ so that it is included in $B(0,\frac{1}{2})$.
     
     
     
@@ -305,7 +305,7 @@ Of course as a polynomial, $T_x^\alpha f$ is smooth, so the product $(T_x^\alpha
 The way of defining $fg$ will be to reconstruct a global distribution from the local approximations $T_x^\alpha f$, for $x \in \R^d$.
 
 \begin{definition}[Germs of distribution]
-    A germ of distribution is a family of distribution $(F_x)_{x \in \R^d}$ indexed by our space variable. Additionnaly, we require for technical reason that for all test-function $\phi \in \D$, the map $x\mapsto F_x(\phi)$ should be measurable.
+    A germ of distribution is a family of distribution $(F_x)_{x \in \R^d}$ indexed by our space variable. Additionaly, we require for technical reason that for all test-function $\phi \in \D$, the map $x\mapsto F_x(\phi)$ should be measurable.
 \end{definition}
 
 \begin{example}
@@ -342,7 +342,7 @@ The way of defining $fg$ will be to reconstruct a global distribution from the l
 We return to the problem of mutliplying a distribution with a non-smooth function.
 \begin{corollary}[Young's multiplication]
     Let $\alpha \in \R^*_+\setminus\N$, $\beta <0$ be such that $\alpha+\beta>0$. 
-    Then, there exists a unique bilinear map $C^\alpha \times C^\beta \longrightarrow C^\alpha$, that extends the multiplication operator $C^\infty \times \D' \longrightarrow \D'$.
+    Then, there exists a unique bilinear map $C^\alpha \times C^\beta \longrightarrow C^\beta$, that extends the multiplication operator $C^\infty \times \D' \longrightarrow \D'$.
 \end{corollary}
 
 \begin{proof}
@@ -375,10 +375,10 @@ We return to the problem of mutliplying a distribution with a non-smooth functio
         \abs{(F_x)(\eta^\lambda_x)} &\leq \sum_{\abs{k}<\alpha} \abs{\frac{D^kf(x)}{k!}} \abs{g((\cdot - x)^k\eta^\lambda_x)}\\
         &\leq \sum_{\abs{k}<\alpha} \abs{\frac{D^kf(x)}{k!}} \lambda^{\abs{k}} \abs{g(((\cdot)^k\eta)^\lambda_x)}\\
         &\leq \norm{g}_\beta \sum_{\abs{k}<\alpha} \abs{\frac{D^kf(x)}{k!}} \lambda^{\abs{k}+\beta} \\
-        &\lesssim \norm{g}_\beta \norm{f}_{C^\alpha} \lambda^{\alpha+\beta} \quad \text{uniformly in }\eta, \; x \text{ and }\lambda.
+        &\lesssim \norm{g}_\beta \norm{f}_{C^\alpha} \lambda^{\beta} \quad \text{uniformly in }\eta, \; x \text{ and }\lambda.
     \end{align*}
-    So by the third item in the remark above, $fg$ is $\alpha+\beta$-Hölder.
-    Additionnaly, the map, $(f,g)\mapsto (T_x^\alpha f) g$ is bilinear, and $\mathcal{R}:F_x \mapsto \mathcal{R}(F)$ is linear (by easily seen by uniqueness). So $(f,g)\mapsto fg$ is bilinear.
+    So by the third item in the remark above, $fg$ is $\beta$-Hölder.
+    Additionaly, the map, $(f,g)\mapsto (T_x^\alpha f) g$ is bilinear, and $\mathcal{R}:F_x \mapsto \mathcal{R}(F)$ is linear (by easily seen by uniqueness). So $(f,g)\mapsto fg$ is bilinear.
     It remains to check that it extends the multiplication map. For this, it is enough to check that the product verifies the reconstruction bound when $f \in C^\infty$.
     
     Suppose $f \in C^\infty$.
@@ -434,7 +434,7 @@ Fix $x\in \R^d$. $f_{x,n}$ is a measurable function. We want to show that it con
 Just as in the proof of the technical lemma \ref{lem:technique1}, 
 we define $\hat{\phi} \coloneq \frac{1}{\int \phi} \sum_{i=0}^{r-1} c_i \phi^{\lambda_i}$ for suitable constants $(c_i),\;(\lambda_i)$, and $\rho \coloneq \hat{\phi}^2*\hat{\phi}$, so that we can write the increment in convolution form~: $\rho^{2^{-m-1}} - \rho^{2^{-m}} = (\rho^{\frac{1}{2}} - \rho)^{2^{-m}} = \hat{\phi}^{2^{-m}}*\check{\phi}^{2^{-m}}$ where $\check{\phi}\coloneq \hat{\phi}^{\frac{1}{2}} - \hat{\phi}^2$.
 Recall that $\int \hat{\phi} = 1$ so that $\int \rho = 1$ : we can use it as our mollifier.
-Additionnaly, $\forall k, 1\leq \abs{k}\leq r-1, \quad \int x^k \hat{\phi}(x) \dd x = 0$ where we fixed $r\in N, \; r>-\alpha$, and the same goes trivially for $\check{\phi}$.
+Additionaly, $\forall k, 1\leq \abs{k}\leq r-1, \quad \int x^k \hat{\phi}(x) \dd x = 0$ where we fixed $r\in N, \; r>-\alpha$, and the same goes trivially for $\check{\phi}$.
 Finally, recall that the coherence bound is verified with $\hat{\phi}$.
 
 \begin{align*}

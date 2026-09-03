@@ -35,15 +35,9 @@ To analyze the behavior of the system under scaling, we consider a blow-up or zo
 \end{equation}
 In this regime, the exponent associated with the scaled coupling constant is strictly positive, which means that the effect of the non-linearity vanishes on small scales. This ensures that the equation is super-renormalizable and can be resolved locally using a finite number of counterterms.
 
-To regularize the singular equation, we introduce a mollified noise at scale $\rho$ and modify the partial differential equation by introducing a deterministic, regularization-dependent counterterm. Symmetries under space-time translations, state reflection parity, and spatial reflections significantly restrict the allowed counterterms. First, stationarity under space-time translations dictates that the counterterm coefficients must be space-time constants. Second, because the noise is a centered Gaussian, its law is symmetric under state reflection, meaning $-\xi \stackrel{\text{law}}{=} \xi$. Since the cubic non-linearity is also odd, this state reflection symmetry $-\phi \stackrel{\text{law}}{=} \phi$ propagates through the multi-indices. On the level of the model components, the noise homogeneity which keeps track of the number of noises in the multi-index $\beta$ dictates that:
-\begin{equation}
-(-1)^{1 + \sum_{n} \beta(n)} \Pi_\beta \stackrel{\text{law}}{=} \Pi_\beta \quad \text{and} \quad (-1)^{1 + \sum_{n} \beta(n)} \Pi^-_\beta \stackrel{\text{law}}{=} \Pi^-_\beta.
-\end{equation}
-This implies that the counterterm coefficients must vanish unless the exponent $1 + \sum_{n} \beta(n)$ is even, which rules out terms like $h(\rho) 1$ or $h(\rho) \phi^2$. Third, spatial reflection parity across the $\{x_i = 0\}$ plane dictates that:
-\begin{equation}
-(-1)^{\sum_{n} n_i \beta(n)} \Pi_\beta(R_i \cdot) \stackrel{\text{law}}{=} \Pi_\beta \quad \text{and} \quad (-1)^{\sum_{n} n_i \beta(n)} \Pi^-_\beta(R_i \cdot) \stackrel{\text{law}}{=} \Pi^-_\beta.
-\end{equation}
-Evaluating at the base point $x = 0$ against a spatially symmetric kernel, this forces the expectation to vanish if the spatial parity exponent is odd, ruling out gradient terms of the form $h_i(\rho) \partial_i \phi$. Combining these constraints with the subcriticality condition that only permits counterterms associated with multi-indices of negative homogeneity ($|\beta| < 2$), we reduce the allowed counterterms to the linear form $h = h(\rho) \phi$. The coefficient $h(\rho)$ is represented as a formal power series in the coupling constant $\lambda$ given by:
+To regularize the singular equation, we introduce a mollified noise at scale $\rho$ and modify the partial differential equation by introducing a deterministic, regularization-dependent counterterm. Symmetries under space-time translations, state reflection parity, and spatial reflections significantly restrict the allowed counterterms. First, stationarity under space-time translations dictates that the counterterm coefficients must be space-time constants. 
+Second, because the noise is a centered Gaussian, its law is symmetric under state reflection, meaning $-\xi \stackrel{\text{law}}{=} \xi$. Since the cubic non-linearity is also odd, this state reflection symmetry $-\phi \stackrel{\text{law}}{=} \phi$ propagates through the multi-indices. 
+Combining these constraints with the subcriticality condition that only permits counterterms associated with multi-indices of negative homogeneity ($|\beta| < 2$), we reduce the allowed counterterms to the linear form $h = h(\rho) \phi$. The coefficient $h(\rho)$ is represented as a formal power series in the coupling constant $\lambda$ given by:
 \begin{equation}
 h(\rho) = \sum_{k \geq 0} c_k \lambda^k.
 \end{equation}
@@ -52,19 +46,20 @@ The constant coefficients $c_k$ are deterministic and vanish unless $k$ is stric
 0 < k < (1 + \alpha)^{-1}.
 \end{equation}
 
-We parameterize the non-linear solution manifold using a coordinate system on the parameter space of the coupling constant and the space-time analytic functions. Let $p$ be an analytic function representing the solution in the linear case. We introduce coordinates $z_n[p] = \frac{1}{n!} \partial^n p(0)$ for space-time multi-indices $n = (n_0, \dots, n_d)$, and $z_3[\lambda] = \lambda$ for the coupling constant. For any multi-index $\beta$ over the index set, we define the coordinate monomial:
+We parameterize the non-linear solution manifold using a coordinate system on the parameter space of the coupling constant and the space-time analytic functions. Let $p$ be an analytic function representing the solution in the linear case. We introduce coordinates $z_\textbf{n}[p] = \frac{1}{\textbf{n}!} \partial^\textbf{n} p(0)$ for space-time multi-indices $\textbf{n} = (n_0, \dots, n_d)$, and $z_3[\lambda] = \lambda$ for the coupling constant. For any multi-index $\beta$ over the index set, we define the coordinate monomial:
 \begin{equation}
-z^\beta = z_3^{\beta(3)} \prod_{n} z_n^{\beta(n)}.
+z^\beta = z_3^{\beta(3)} \prod_{\textbf{n}} z_\textbf{n}^{\beta(\textbf{n})}.
 \end{equation}
 We then make an ansatz for the solution $\phi$ as a formal power series given by:
 \begin{equation}
 \phi = \sum_{\beta} z^\beta \Pi_\beta,
 \end{equation}
-where the coefficients $\Pi_\beta$ are random space-time functions. To ensure consistency for the linear case when the coupling constant vanishes, the polynomial boundary conditions are uniquely fixed on the components of zero coupling homogeneity. That is, for any multi-index $\beta$ such that $\beta(3) = 0$ but $\beta$ is not the zero multi-index, we have:
+where the coefficients $\Pi_\beta$ are random space-time functions. To ensure consistency for the linear case when the coupling constant vanishes, the polynomial boundary conditions are uniquely fixed on the components of zero coupling homogeneity. 
+That is, for any multi-index $\beta$ such that $\beta(3) = 0$ but $\beta$ is not the zero multi-index, we have:
 \begin{equation}
-\Pi_\beta(y) = \begin{cases} y^n & \text{if } \beta = \delta_n, \\ 0 & \text{otherwise}, \end{cases}
+\Pi_\beta(y) = \begin{cases} y^\textbf{n} & \text{if } \beta = \delta_\textbf{n}, \\ 0 & \text{otherwise}, \end{cases}
 \end{equation}
-where $\delta_n$ represents the multi-index that assigns the value one to the coordinate index $n$ and zero to all other entries. This represents a compact separation of variables between the parameter space coordinates and the random space-time fluctuations of the model.
+where $\delta_\textbf{n}$ represents the multi-index that assigns the value one to the coordinate index $\textbf{n}$ and zero to all other entries. This represents a compact separation of variables between the parameter space coordinates and the random space-time fluctuations of the model.
 
 We introduce the formal power series $\Pi^-$ to represent the right-hand side of the renormalized equation, including the non-linear cubic term and the counterterm. The component-wise description of the system is captured by the relation:
 \begin{equation}

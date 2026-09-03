@@ -1,18 +1,19 @@
 \section{A robust relation $\delta \Pi\longrightarrow \delta \Pi ^-$}
 \label{ch:robust}
-We established that :
-\begin{equation}
-    \partial^{\mn} (\delta \Pi - d \Gamma^*_x \Pi_x)(x)=0 \quad \text{for }\vert \mn \vert < 2+s.
-    \label{eq:coeff_fonction_de_malliavin}
-\end{equation}
-We will see how this specifies uniquely the coefficients $\dG$. 
-Indeed, by definition, 
+For all multi-index $\beta$, let $\delta \Pi_\beta$ be the malliavin derivative of $\Pi_\beta$ with respect to $\delta \xi$.
+
+Define 
 $$
 \dG \coloneqq \sum_{\abs{\mn} < 2+s} \dd \pi^{(n)}_x \G_x
 \partial_{z_\mn}.$$
-And as $$\partial_{z_\mn} z_{\mathbf{m}} = \delta_{\mn, \mathbf{m}},$$
+where 
+\begin{itemize}
+    \item $\dd \pi^{(n)}_x$ are random coefficients,
+    \item $\delta_{z_{\mn}}$ is the formal derivation with respect to $z_{\mn}$ in $\R[[z_3,z_{\textbf{m}}]]$, i.e. $\partial_{z_\mn} z_{\mathbf{m}} = \delta_{\mn, \mathbf{m}}$.
+\end{itemize}
+
 It follows that $$\forall \mathbf{m}, \abs{\mathbf{m}}\geq 2+s, \dG z_m = 0.$$
-Additionnaly, $\dG$ behaves like a derivation :
+Additionaly, $\dG$ behaves like a derivation :
 \begin{empheq}[left=\empheqlbrace]{align*}
     &\dG \pi \pi' = (\dG \pi)(\G_x \pi')+(\G_x \pi)(\dG \pi'), \\
     &\dG 1 = 0, \\
@@ -21,6 +22,12 @@ Additionnaly, $\dG$ behaves like a derivation :
 This follows directly from the behaviour of $\partial_{\mathbf{z}_n}$ which is a derivation, and $\G_x$ which is an algebra morphism.
 As a consequence, together with its finiteness property, $\dG$ is determined by its values on the finitely many coordinates $\{\mathbf{z}_n\}_{\abs{\mn}<2+s}$.
 
+We want the coefficients $\dd \pi^{(n)}_x$ to be such that $\dG \Pi_x$ is a germ well approximating $\delta \Pi$, meaning :
+\begin{equation}
+    \partial^{\mn} (\delta \Pi - \dG \Pi_x)(x)=0 \quad \text{for }\vert \mn \vert < 2+s.
+    \label{eq:coeff_fonction_de_malliavin}
+\end{equation}
+Let's assume this is verified and show how this specifies uniquely the coefficients $\dG$. 
 Knowing $\delta \Pi$ and \eqref{eq:coeff_fonction_de_malliavin}, we actually know $\dG \partial^{\mn}\Pi_x(x)$ for all $\mn$ such that $\abs{\mn}<2+s$.
 We also know this fact about the jet:
 \begin{equation}
