@@ -1,0 +1,167 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- PACKAGES---
+\usepackage[utf8]{inputenc}       % Encodage (standard)
+\usepackage[T1]{fontenc}          % Polices de sortie
+\usepackage[english]{babel}        % Langue française (guillemets, césure)
+\usepackage[backend=biber]{biblatex}
+\usepackage{lmodern}              % Police plus lisible
+\usepackage{microtype}            % Améliore l'apparence visuelle du texte
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % La base du LaTeX mathématique
+\usepackage{mathtools}             % Extensions pour amsmath
+\usepackage{mathrsfs}              % Lettres calligraphiques (\mathscr{L})
+\usepackage{bm}                    % Symboles en gras (\bm{x})
+\usepackage{empheq}
+\usepackage{csquotes}
+% --- CONFIGURATION DES THÉORÈMES ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- MISE EN PAGE ---
+\usepackage[margin=2.5cm]{geometry} % Marges
+\usepackage{hyperref}               % Liens cliquables (sommaire, citations)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% --- TES MACROS (Raccourcis) ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\diff}{\mathrm{d}}     % Pour un joli 'd' de différentielle
+\newcommand{\dG}{\mathrm{d}\Gamma^*_x}
+\newcommand{\dGb}{\mathrm{d}\Gamma^*}
+\newcommand{\D}{\mathscr{D}}
+
+\newcommand{\G}{\Gamma^*}
+\newcommand{\mn}{\mathbf{n}}
+\newcommand{\mm}[1]{\mathbf{m}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\z}[1]{\mathbf{z}_{#1}}
+
+% --- INFOS DU MÉMOIRE ---
+\title{Integration Step}
+\author{Gabriel de Boisgrollier}
+\date{\today}
+
+\addbibresource{mabibliozotero.bib}
+
+
+\begin{document}
+\maketitle
+Hypothesis :
+
+\begin{align}
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi^- - \dG \Pi_x^-)_{\beta r}(x)}^q)^\frac{1}{2} &\lesssim r^{\alpha - 2 + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}, \\
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\dG)^\gamma_\beta}^q)^\frac{1}{2} &\lesssim R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} \text{ for populated }\gamma \neq \text{pp}, \label{coeff_estimate} \\
+     \partial^\mn((\delta \Pi - \dG \Pi_x)_\beta)(x) &= 0, \, \forall x \in \R^d, \forall \abs{\mn}<2+s \label{qualitative_vanishing}
+\end{align}
+
+Goal :
+
+\begin{equation}
+    \label{reconstruction_deltaPi}
+        \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi - \dG \Pi_x)_{\beta r}(x)}^q \right)^\frac{1}{2} \lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}} 
+\end{equation}
+
+
+\begin{lemma}[Liouville]
+    Let g be a smooth function, $m\in \N$ an integer, and $x\in \R^n$ a base point.
+    Then there exists at most on couple (u,p), with u a smooth function and p a polynomial, such that :
+    $$
+    \begin{cases}
+        L(u)= g - p \\
+        \operatorname*{deg}(p)\leq m-2 \\
+        \forall \abs{\mn} \leq m, \partial^\mn u(x) = 0.
+        \limsup_{\abs{x-y}\to \infty} \frac{u(y)}{\abs{x-y}^\kappa} < \infty, \, \text{for }\kappa\in \R, \, \kappa<m.
+    \end{cases}
+    $$
+\end{lemma}
+
+\begin{proof}
+    Let $\abs{\mn} \leq m - 2$.
+    \begin{equation*}
+        0 = \partial^\mn(L(u))(x) = \partial^\mn g(x) -\partial^\mn p(x),
+    \end{equation*}
+\end{proof}
+so that $p$ is determined by $g$.
+Then, let $u$ and $\tilde{u}$ be two candidate and denote $w = u - \tilde{u}$.
+We have $L(w) = 0$, and $\limsup_{\abs{x-y}\to \infty} \frac{u(y)}{\abs{x-y}^\kappa} < \infty$. By Liouville's theorem, $w$ is a polynomial with degree at most $\kappa$.
+Then $\forall \abs{\mn} \leq m, \partial^\mn w(x) = 0$ shows that $w=0$.
+
+We have $L(\delta \Pi_\beta - (\dG \Pi_{x})_\beta) =\delta \Pi_\beta^- - (\dG \Pi_{x}^-)_\beta \operatorname*{mod} \mathcal{P}_{<\abs{\beta}+\frac{D}{2} - 2}$.
+But it is not sufficient to caracterize $\delta \Pi_\beta - (\dG \Pi_{x})_\beta$ in terms of $\delta \Pi_\beta^- - (\dG \Pi_{x}^-)_\beta$, because the growth at infinity of $\delta \Pi_\beta - (\dG \Pi_{x})_\beta$ is too big.
+Indeed, $(\dG \Pi_x)_\beta = \sum_{\abs{\gamma}< \abs{\beta} + \frac{D}{2}} (\dG)_\beta^\gamma \Pi_{x\gamma}$. Now $\Pi_{x\gamma}(y)$ is expected to grow like $\abs{x-y}^\gamma$. So the sum include terms that grow almost like $2+\frac{D}{2}$.
+In contrast, the vanishing order of $\delta \Pi_\beta - (\dG \Pi_{x})_\beta$ at $x$ would be $\alpha + \frac{D}{2} (=2+s)$, which is lower by more than 2 (we are in the regime $\alpha<0$).
+This is the reason why we truncate the sum at order $2+s$. 
+Furthermore, because $L\Pi_{x\beta} = \Pi_{x\beta}^- \operatorname*{mod} \mathcal{P}_{<\abs{\beta}-2}$ and $L\delta\Pi_{\beta} = \delta\Pi_{\beta}^- \operatorname*{mod} \mathcal{P}_{<\abs{\beta}-2}$, we restrict ourselves to $\abs{\beta}<\lceil 2+s \rceil$.
+As a result, we have the following 
+\begin{equation}
+    L(\delta \Pi_\beta - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}) =\delta \Pi_\beta^- - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^- \operatorname*{mod} \mathcal{P}_{<s}
+\end{equation}
+and the hypothesis of the lemma are verified, so $U_x \coloneq \delta \Pi_\beta - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}$ is completely determined by $F_x \coloneq \delta \Pi_\beta^- - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^-$.
+
+\begin{remark}
+    The threshold $2+s$ is too strong for $(\dG \Pi_{x}^-)_\beta$, but we will need to deal with the remainder $\sum_{\abs{\gamma} \geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^-$ and see that this threshold makes sense.
+\end{remark}
+
+We claim that \eqref{coeff_estimate} implies 
+\begin{align}
+    \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\sum_{\abs{\gamma}\geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^-)_r(x)}^q \right)^\frac{1}{2} &\lesssim r^{\alpha + \frac{D}{2}-2}(r+R)^{\abs{\beta} - \abs{\alpha}},\label{remainder_right}\\
+    \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\sum_{\abs{\gamma}\geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma})_r(x)}^q \right)^\frac{1}{2} &\lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}. \label{remainder_left}
+\end{align}
+So that by triangle inequality, we can add to our set of hypothesis
+\begin{equation*}
+        \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(F_x)_r(x)}^q \right)^\frac{1}{2} \lesssim r^{\alpha + \frac{D}{2}-2}(r+R)^{\abs{\beta} - \abs{\alpha}},
+\end{equation*}
+and it suffices to show
+\begin{equation*}
+        \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(U_x)_r(x)}^q \right)^\frac{1}{2} \lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}.
+\end{equation*}
+
+
+The strategy now is to take advantage of the unicity of solution to $Lu = F_x \operatorname*{mod} \mathcal{P}_{<s}$, to find another expression of $U_x$, that verifies \eqref{reconstruction_deltaPi}.
+The germ $(F_x)$ is $(2\alpha, \alpha + \frac{D}{2} - 2)$-coherent and $\alpha + \frac{D}{2} - 2$ - homogeneous.
+Let K be the heat kernel, which is assumed to be a 2-regularising kernel (we would need to truncate it, for it to be compactly supported, but it is easy to deal with the smooth remainder).
+Define $\tilde{U_x}\coloneq \mathcal{K}(F)_x = K*(F_x) - T_x^{2+s}(K*(F_x))$.
+By the Schauder estimate theorem for coherent germs (Theorem 3.17 of \cite{BCZ24}), $\tilde{U_x}$ is a well-defined $(2\alpha + 2, \alpha +\frac{D}{2})$-coherent and $\alpha + \frac{D}{2}$-homogeneous germ.
+Plus its homogeneity norm is dominated by the sum of the homogeneity and coherence norm of $(F_x)$.
+This means that 
+\begin{align}
+        \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\tilde{U}_x)_r(x)}^q \right)^\frac{1}{2} &\lesssim r^{\alpha + \frac{D}{2}}((C+R)^{\abs{\beta} - \alpha}+(C+R)^{\abs{\beta} - 3\alpha-2})\\
+&\lesssim r^{\alpha + \frac{D}{2}}(C+R)^{\abs{\beta} - \alpha} (\text{because }3\alpha+2>\alpha)
+\end{align}
+which is exactly the estimate we want to prove for $(U_x)$.
+
+Let's show that $\tilde{U}_x = U_x$. It suffices to check that both $\tilde{U}_x$ and $U_x$ verifies Liouville's lemma's hypothesis.
+First, $L\tilde{U}_x = L(K*(F_x)) - L(T_x^{2+s}(K*(F_x)))  = F_x + \text{polynomial of degree < s}$.
+Then,
+\begin{itemize}
+    \item The jet condition is verified by construction of $\tilde{U}_x$.
+    \item With \eqref{remainder_left}, we claimed that the remainder $\sum_{\abs{\gamma} \geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}$ has vanishing order $\alpha+\frac{D}{2} = 2+s$ at $x$, and together with \eqref{qualitative_vanishing}, it shows that the jet condition is also verified for $U_x$.
+    \item We already dealt with the growth condition of $U_x$, it was the reason we truncated.
+    \item Growth condition for $\tilde{U}$ ?
+\end{itemize}
+which concludes.
+
+It remains to prove that \eqref{coeff_estimate} implies \eqref{remainder_left} and \eqref{remainder_right}.
+This is done purely by induction.
+
+The sums $\sum_{\abs{\gamma}\geq 2+s}(\dG)_\beta^\gamma \Pi_{x\gamma}$ and $\sum_{\abs{\gamma}\geq 2+s}(\dG)_\beta^\gamma \Pi_{x\gamma}^-$ is restricted to populated $\gamma$ that are not purely polynomial : else $\Pi_{x\gamma}^- = 0$, and $(\dG)^\gamma_\beta = (\dG)^{\delta_\mn}_\beta = 0$ because $\abs{\mn}\geq 2+s$.
+Furthermore, $\abs{\gamma}_\prec < \abs{\beta}_\prec$ so the induction hypothesis on $\Pi^-_{x\gamma}$ and $\Pi_{x\gamma}$ are available.
+
+\begin{align*}
+    \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\sum_{\abs{\gamma}\geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^-)_r(x)}^q \right)^\frac{1}{2} &\leq \sum_{\gamma}     \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{((\dG)_\beta^\gamma \Pi_{x\gamma}^-)_r(x)}^q \right)^\frac{1}{2} (\text{triangle inequality})\\
+    &\leq \sum_{\gamma}  \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{2q}}\abs{(\dG)_\beta^\gamma}^{2q} \right)^\frac{1}{2}    \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{2q}}\abs{(\Pi_{x\gamma}^-)_r(x)}^q \right)^\frac{1}{2} (\text{Hölder's inequality}) \\
+    &\leq \sum_{2+s \leq \abs{\gamma} \leq \abs{\beta}+\frac{D}{2}} R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} r^{\gamma - 2} \\
+    &\lesssim r^{\alpha - 2 +\frac{D}{2}}(r+R)^{\abs{\beta}-\alpha}.
+\end{align*}
+And we proceed the same way for \eqref{remainder_left}.
+
+\printbibliography
+\end{document}
