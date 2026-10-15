@@ -3,11 +3,11 @@
 % --- PACKAGES---
 \usepackage[utf8]{inputenc}       % Encodage (standard)
 \usepackage[T1]{fontenc}          % Polices de sortie
-\usepackage[english]{babel}        % Langue française (guillemets, césure)
+\usepackage[english]{babel}        
 \usepackage[backend=biber]{biblatex}
 \usepackage{lmodern}              % Police plus lisible
 \usepackage{microtype}            % Améliore l'apparence visuelle du texte
-\usepackage{amsmath, amssymb, amsthm, amsfonts} % La base du LaTeX mathématique
+\usepackage{amsmath, amssymb, amsthm, amsfonts} 
 \usepackage{mathtools}             % Extensions pour amsmath
 \usepackage{mathrsfs}              % Lettres calligraphiques (\mathscr{L})
 \usepackage{bm}                    % Symboles en gras (\bm{x})
@@ -63,9 +63,12 @@
 Hypothesis :
 
 \begin{align}
-    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi^- - \dG \Pi_x^-)_{\beta r}(x)}^q)^\frac{1}{2} &\lesssim r^{\alpha - 2 + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}, \\
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi^- - \dG \Pi_x^-)_{\beta r}(x)}^q)^\frac{1}{2} &\lesssim r^{\alpha - 2 + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}, \label{homogeneity_deltaPi_minus}\\
     (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\dG)^\gamma_\beta}^q)^\frac{1}{2} &\lesssim R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}} \text{ for populated }\gamma \neq \text{pp}, \label{coeff_estimate} \\
-     \partial^\mn((\delta \Pi - \dG \Pi_x)_\beta)(x) &= 0, \, \forall x \in \R^d, \forall \abs{\mn}<2+s \label{qualitative_vanishing}
+    (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\dGb_{x+y}\Pi_{x+y}^- - \dG \Pi_x^-)_{\beta r}(x+y)}^q)^\frac{1}{2} &\lesssim r^{2\alpha}(r+\abs{y})^{\alpha+\frac{D}{2}}(r+\abs{y}+R)^{\abs{\beta}-2-3\alpha}, \label{coherence_deltaPi_minus}\\
+    L\Pi_{x\gamma} &= \Pi_{x\gamma}^- \operatorname*{mod} \mathcal{P}_{\leq\abs{\gamma}-2} \label{PDE_Pi} \\
+    L\delta\Pi_{\beta} &= \delta\Pi_{\beta}^- \operatorname*{mod} \mathcal{P}_{\leq \abs{\beta}-2} \label{PDE_deltaPi}\\
+    \partial^\mn((\delta \Pi - \dG \Pi_x)_\beta)(x) &= 0, \, \forall x \in \R^d, \forall \abs{\mn}<2+s \label{qualitative_vanishing}
 \end{align}
 
 Goal :
@@ -77,20 +80,21 @@ Goal :
 
 
 \begin{lemma}[Liouville]
-    Let g be a smooth function, $m\in \N$ an integer, and $x\in \R^n$ a base point.
-    Then there exists at most on couple (u,p), with u a smooth function and p a polynomial, such that : \lz{there exists $\kappa<m$ such that}
+    Let g be a smooth function, $m\in \N$ and $\kappa\in \R$ with $\kappa<m$, $x\in \R^n$ a base point.
+    Then there exists at most on couple (u,p), with u a smooth function and p a polynomial, such that : 
     $$
     \begin{cases}
         L(u)= g - p \\
         \operatorname*{deg}(p)\leq m-2 \\
         \forall \abs{\mn} \leq m, \partial^\mn u(x) = 0.
-        \limsup_{\abs{x-y}\to \infty} \frac{u(y)}{\abs{x-y}^\kappa} < \infty, \, \text{for }\kappa\in \R, \, \kappa<m.
+        \limsup_{\abs{x-y}\to \infty} \frac{u(y)}{\abs{x-y}^\kappa} < \infty.
     \end{cases}
     $$
 \end{lemma}
 \lz{Si $P$ est le polynôme de Taylor à l'ordre $m$ centré en $x$ de $L^{-1}g$, alors $u=L^{-1}g-P$ et $p=LP$.
 Dans l'approche de Martin on travaille sur $P$, jamais sur $p$. Il me semble que pour Felix c'est l'opposé. Je ne comprends
 pas bien l'utilité de considérer $p$ à la place de $P$.}
+\gdb{Effectivement, et l'hypothèse sur les noyaux régularisant préservant les polynômes permet de passer de l'un à l'autre. Dans l'article de Felix, ça permet d'écrire l'edp Lu = g mod polynome de degré\dots ce qui est pratique, je n'ai pas d'autres explication pour l'instant.}
 \begin{proof}
     Let $\abs{\mn} \leq m - 2$.
     \begin{equation*}
@@ -98,28 +102,31 @@ pas bien l'utilité de considérer $p$ à la place de $P$.}
     \end{equation*}
 so that $p$ is determined by $g$.
 Then, let $u$ and $\tilde{u}$ be two candidate and denote $w = u - \tilde{u}$.
-We have $L(w) = 0$, and $\limsup_{\abs{x-y}\to \infty} \frac{u(y)}{\abs{x-y}^\kappa} < \infty$ \lz{plutôt $w$}. By Liouville's theorem, $w$ is a polynomial with degree at most $\kappa$.
+We have $L(w) = 0$, and $\limsup_{\abs{x-y}\to \infty} \frac{w(y)}{\abs{x-y}^\kappa} < \infty$. By Liouville's theorem, $w$ is a polynomial with degree at most $\kappa$.
 Then $\forall \abs{\mn} \leq m, \partial^\mn w(x) = 0$ shows that $w=0$.
 \end{proof}
 
-We have $L(\delta \Pi_\beta - (\dG \Pi_{x})_\beta) =\delta \Pi_\beta^- - (\dG \Pi_{x}^-)_\beta \operatorname*{mod} \mathcal{P}_{<\abs{\beta}+\frac{D}{2} - 2}$.
+In view of \eqref{PDE_Pi} and \eqref{PDE_deltaPi}, by linear combination we have $L(\delta \Pi_\beta - (\dG \Pi_{x})_\beta) =\delta \Pi_\beta^- - (\dG \Pi_{x}^-)_\beta \operatorname*{mod} \mathcal{P}_{<\abs{\beta}+\frac{D}{2} - 2}$.
 But it is not sufficient to caracterize $\delta \Pi_\beta - (\dG \Pi_{x})_\beta$ in terms of $\delta \Pi_\beta^- - (\dG \Pi_{x}^-)_\beta$, because the growth at infinity of $\delta \Pi_\beta - (\dG \Pi_{x})_\beta$ is too big.
 Indeed, $(\dG \Pi_x)_\beta = \sum_{\abs{\gamma}< \abs{\beta} + \frac{D}{2}} (\dG)_\beta^\gamma \Pi_{x\gamma}$. Now $\Pi_{x\gamma}(y)$ is expected to grow like $\abs{x-y}^\gamma$. So the sum includes terms that grow almost like $2+\frac{D}{2}$.
 In contrast, the vanishing order of $\delta \Pi_\beta - (\dG \Pi_{x})_\beta$ at $x$ would be $\alpha + \frac{D}{2} (=2+s)$, which is lower by more than 2 (we are in the regime $\alpha<0$).
 This is the reason why we truncate the sum at order $2+s$. 
 \lz{Tout ça n'est pas très clair. Je vois dans [BOT] la restriction $|{\bf n}|<2+s$ dans la formule (161) qui définit $\dG$, mais ensuite la triangularité de
 $\dG$ est $\abs{\gamma}< \abs{\beta} + \frac{D}{2}$ (175). Je vois que tu fais référence à la discussion de [BOT, section 2.15]. On peut expliquer mieux ?}
+\gdb{Ici, les $(\dG)_\gamma^\beta$ sont simplement des coefficients constants, et ne participe pas à la croissance en l'infini, la triangularité est importante parce qu'elle définit l'ensemble d'indice de sommation. 
+On est en gros en train de dire $(\dG\Pi_x)(y) \approx_{y \to \infty} C \Pi_{x \gamma_0}(y) \approx C\abs{x-y}^{\abs{\gamma_0}}$, où $\gamma_0$ est l'indice d'homogénéité maximale dans la somme : $\abs{\gamma_0}$ presque égal à $\abs{\beta}+\frac{D}{2}$. 
+Et sans restriction sur $\beta$, $\abs{\beta}$ peux aller jusqu'à 2.}
 Furthermore, because $L\Pi_{x\beta} = \Pi_{x\beta}^- \operatorname*{mod} \mathcal{P}_{<\abs{\beta}-2}$ and $L\delta\Pi_{\beta} = \delta\Pi_{\beta}^- \operatorname*{mod} \mathcal{P}_{<\abs{\beta}-2}$, we restrict ourselves to $\abs{\beta}<\lceil 2+s \rceil$.
 As a result, we have the following 
 \begin{equation}
-    L(\delta \Pi_\beta - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}) =\delta \Pi_\beta^- - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^- \operatorname*{mod} \mathcal{P}_{<s}
+    L(\delta \Pi_\beta - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}) =\delta \Pi_\beta^- - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^- \quad \operatorname*{mod} \mathcal{P}_{<s}
 \end{equation}
 and the hypothesis of the lemma are verified, so $U_x \coloneq \delta \Pi_\beta - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}$ is completely determined by $F_x \coloneq \delta \Pi_\beta^- - \sum_{\abs{\gamma}< 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^-$.
 \lz{Essayons de vérifier cela précisément. J'imagine que $m=\lceil 2+s \rceil$ et que $\partial^\mn u(x) = 0$ pour tout 
 $\abs{\mn} \leq m$ suit de [BOT, (164)]. Le contrôle à l'infini suit de ???   }
 \begin{remark}
     The threshold $2+s$ is too strong for $(\dG \Pi_{x}^-)_\beta$, but we will need to deal with the remainder $\sum_{\abs{\gamma} \geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma}^-$ and see that this threshold makes sense. \lz{Not very clear, I guess this is again the previous discussion or
-    [BOT, section 2.15].}
+    [BOT, section 2.15].}\gdb{En fait je regrette cette remarque qui n'est pas vraiment vraie, je sais pas pourquoi j'ai écrit ça.}
 \end{remark}
 
 We claim that \eqref{coeff_estimate} implies 
@@ -128,9 +135,10 @@ We claim that \eqref{coeff_estimate} implies
     \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\sum_{\abs{\gamma}\geq 2+s} (\dG)_\beta^\gamma \Pi_{x\gamma})_r(x)}^q \right)^\frac{1}{2} &\lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}. \label{remainder_left}
 \end{align}
 So that by triangle inequality, we can add to our set of hypothesis
-\begin{equation*}
+\begin{equation}
+        \label{F_homogeneity}
         \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(F_x)_r(x)}^q \right)^\frac{1}{2} \lesssim r^{\alpha + \frac{D}{2}-2}(r+R)^{\abs{\beta} - \abs{\alpha}},
-\end{equation*}
+\end{equation}
 and it suffices to show
 \begin{equation*}
         \left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(U_x)_r(x)}^q \right)^\frac{1}{2} \lesssim r^{\alpha + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}.
@@ -139,8 +147,17 @@ and it suffices to show
 
 The strategy now is to take advantage of the uniqueness of solution to $Lu = F_x \operatorname*{mod} \mathcal{P}_{<s}$, to find another expression of $U_x$, that verifies \eqref{reconstruction_deltaPi}.
 The germ $(F_x)$ is $(2\alpha, \alpha + \frac{D}{2} - 2)$-coherent \lz{why $2\alpha$ instead of $\alpha-2$? Anyway, where is this proved?
-I looked into [BOT] but I could not identify the relevant estimate} and $(\alpha + \frac{D}{2} - 2)$-homogeneous \lz{That is true if the reconstruction of $F$
-is $0$, is that true here?}.
+I looked into [BOT] but I could not identify the relevant estimate} 
+\gdb{Sorry I forgot to justify this. I wrote it with estimate (203) of [BOT] in mind, which I added  in the hypothesis :\eqref{coherence_deltaPi_minus}, but it is the coherence for the non-truncated germ. 
+I am trying to prove it for the truncated one, and I beleive it is true : it seems we just remove terms that we have to estimate in the proof of the article, but it is not so obvious to write.} and $(\alpha + \frac{D}{2} - 2)$-homogeneous \lz{That is true if the reconstruction of $F$
+is $0$, is that true here?}.\gdb{I beleive it is clearer now as it is just equation \eqref{F_homogeneity} above.}
+Let us justify the coherence.
+In the article, we have  $(2\alpha, \alpha + \frac{D}{2} - 2)$-coherence for the untruncated germ : it is equation (203) \cite{BOT25}.
+But this estimate comes from estimate (195), and it is established by estimating each term of the sum $\dG \Pi_x^-$
+\begin{align*}
+    F_{x+y} - F_{x} &= \sum_{\abs{\gamma}<2+s} (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - (\dG)^\gamma_\beta\Pi_{x\gamma}^- \\
+    &= \sum_{\abs{\gamma}<2+s} (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - (\dG)^\gamma_\beta \Gamma^*\Pi_{x\gamma}^-
+\end{align*}
 Let $K$ be the heat kernel, which is assumed to be a 2-regularising kernel (we would need to truncate it, for it to be compactly supported, but it is easy to deal with the smooth remainder).
 Define $\tilde{U_x}\coloneq \mathcal{K}(F)_x = K*(F_x) - T_x^{2+s}(K*(F_x))$.
 By the Schauder estimate theorem for coherent germs (Theorem 3.17 of \cite{BCZ24}), $\tilde{U_x}$ is a well-defined $((2\alpha + 2){\color{red}\wedge 0}, \alpha +\frac{D}{2})$-coherent and $\alpha + \frac{D}{2}$-homogeneous germ.
