@@ -153,11 +153,24 @@ I am trying to prove it for the truncated one, and I beleive it is true : it see
 is $0$, is that true here?}.\gdb{I beleive it is clearer now as it is just equation \eqref{F_homogeneity} above.}
 Let us justify the coherence.
 In the article, we have  $(2\alpha, \alpha + \frac{D}{2} - 2)$-coherence for the untruncated germ : it is equation (203) \cite{BOT25}.
-But this estimate comes from estimate (195), and it is established by estimating each term of the sum $\dG \Pi_x^-$
+Let's compute the increment for our truncated germ :
 \begin{align*}
-    F_{x+y} - F_{x} &= \sum_{\abs{\gamma}<2+s} (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - (\dG)^\gamma_\beta\Pi_{x\gamma}^- \\
-    &= \sum_{\abs{\gamma}<2+s} (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - (\dG)^\gamma_\beta \Gamma^*\Pi_{x\gamma}^-
+    F_{x+y} - F_{x} &= \sum_{\abs{\gamma}<2+s} \left( (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - (\dG)^\gamma_\beta\Pi_{x\gamma}^- \right) \\
+    &= \sum_{\abs{\gamma}<2+s} \left( (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - (\dG)^\gamma_\beta \sum_{\theta} (\Gamma^*_{xx+y})_\gamma^\theta \Pi_{x+y\theta}^- \right)\\
+    &= \sum_{\abs{\gamma}<2+s} (\dGb_{x+y})^\gamma_\beta \Pi^-_{x+y\gamma} - \sum_{\theta} \left( (\dG \Gamma^*_{xx+y})^\theta_\beta + \sum_{\abs{\gamma}\geq 2+s} (\dG)^\gamma_\beta (\Gamma^*_{xx+y})_\gamma^\theta \right) \Pi_{x+y\theta}^- \\
+    &= \sum_{\abs{\gamma}<2+s} (\dGb_{x+y} - \dG \Gamma_{xx+y})^\gamma_\beta \Pi_{x+y\gamma}^- + \sum_{\theta}\sum_{\abs{\gamma}\geq 2+s} (\dG)^\gamma_\beta (\Gamma^*_{xx+y})_\gamma^\theta \Pi_{x+y\theta}^- 
 \end{align*}
+
+The first sum is treated in the article : the first factor is estimated in (195) \cite{BOT25} and the second is (141) \cite{BOT25}, by Hölder's inequality and triangle inequality, we obtain the correct bound $r^{2\alpha}(r+\abs{y})^{\alpha - 2 + \frac{D}{2}}(r+\abs{y}+R)^{\abs{\beta}-\alpha}$.
+For the second sum, we use \eqref{coeff_estimate}, (142) and (141), again with triangle inequality and Hölder's inequality, we get the estimate :
+\begin{align*}
+    \sum_{\theta}\sum_{\abs{\gamma}\geq 2+s} R^{\frac{D}{2}+\abs{\beta}-\abs{\gamma}} \abs{y}^{\abs{\gamma} - \abs{\theta}}r^{\theta -2} &\lesssim r^{2\alpha} \sum_{\abs{\gamma}\geq 2+s} R^{\frac{D}{2}+\abs{\beta}-\abs{\gamma}} \sum_{\theta} \abs{y}^{\abs{\gamma} - \abs{\theta}}r^{\theta -2 - 2\alpha} \quad (\abs{\theta}\geq 2(\alpha+1) \text{ by (206)})\\
+    &\lesssim r^{2\alpha} \sum_{\abs{\gamma}\geq 2+s} R^{\frac{D}{2}+\abs{\beta}-\abs{\gamma}}  (r+\abs{y})^{\abs{\gamma} -2 -2\alpha}\\
+    &\lesssim r^{2\alpha} (r+\abs{y})^{\alpha + \frac{D}{2} -2 -2\alpha} \sum_{\abs{\gamma}\geq 2+s} R^{\frac{D}{2}+\abs{\beta}-\abs{\gamma}} (r+\abs{y})^{\abs{\gamma} -(\alpha + \frac{D}{2})}\\
+    &\lesssim r^{2\alpha} (r+\abs{y})^{\frac{D}{2} -2 -\alpha} (r+\abs{y}+R)^{\abs{\beta}-\alpha}
+\end{align*}
+
+
 Let $K$ be the heat kernel, which is assumed to be a 2-regularising kernel (we would need to truncate it, for it to be compactly supported, but it is easy to deal with the smooth remainder).
 Define $\tilde{U_x}\coloneq \mathcal{K}(F)_x = K*(F_x) - T_x^{2+s}(K*(F_x))$.
 By the Schauder estimate theorem for coherent germs (Theorem 3.17 of \cite{BCZ24}), $\tilde{U_x}$ is a well-defined $((2\alpha + 2){\color{red}\wedge 0}, \alpha +\frac{D}{2})$-coherent and $\alpha + \frac{D}{2}$-homogeneous germ.
