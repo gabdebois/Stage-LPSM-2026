@@ -1,0 +1,212 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- PACKAGES---
+\usepackage[utf8]{inputenc}       % Encodage (standard)
+\usepackage[T1]{fontenc}          % Polices de sortie
+\usepackage[english]{babel}        
+\usepackage[backend=biber]{biblatex}
+\usepackage{lmodern}              % Police plus lisible
+\usepackage{microtype}            % Améliore l'apparence visuelle du texte
+\usepackage{amsmath, amssymb, amsthm, amsfonts} 
+\usepackage{mathtools}             % Extensions pour amsmath
+\usepackage{mathrsfs}              % Lettres calligraphiques (\mathscr{L})
+\usepackage{bm}                    % Symboles en gras (\bm{x})
+\usepackage{empheq}
+\usepackage{csquotes}
+\usepackage{comment}
+
+% --- CONFIGURATION DES THÉORÈMES ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- MISE EN PAGE ---
+\usepackage[margin=2.5cm]{geometry} % Marges
+\usepackage{hyperref}               % Liens cliquables (sommaire, citations)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% --- TES MACROS (Raccourcis) ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\diff}{\mathrm{d}}     % Pour un joli 'd' de différentielle
+\newcommand{\dG}{\mathrm{d}\Gamma^*_x}
+\newcommand{\dGb}{\mathrm{d}\Gamma^*}
+\newcommand{\D}{\mathscr{D}}
+
+\newcommand{\G}{\Gamma^*}
+\newcommand{\mn}{\mathbf{n}}
+\newcommand{\mm}[1]{\mathbf{m}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\z}[1]{\mathbf{z}_{#1}}
+
+\newcommand{\gdb}[1]{\begingroup\color{red}GDB:\ #1\endgroup}
+\newcommand{\lz}[1]{\begingroup\color{blue}LZ:\ #1\endgroup}
+
+
+% --- INFOS DU MÉMOIRE ---
+\title{Logical Order of the Proof}
+\author{Gabriel de Boisgrollier}
+\date{\today}
+
+\addbibresource{mabibliozotero.bib}
+
+
+\begin{document}
+\maketitle
+
+The goal is to prove, for all multi-indices $\beta$ that :
+
+\begin{empheq}[left=\empheqlbrace]{align*}
+    \E^{\frac{1}{p}} \abs{\Pi_{x\beta r}(x)}^p &\lesssim r^{\abs{\beta}}, \\
+    \E^{\frac{1}{p}} \abs{\Pi_{x\beta r}^-(x)}^p &\lesssim r^{\abs{\beta}-2}, \\
+    \E^{\frac{1}{p}} \abs{(\Gamma^*_x)^\gamma_\beta}^p &\lesssim x^{\abs{\beta}-\abs{\gamma}} \quad \text{for all populated }\gamma,
+\end{empheq}
+where the implicit constants only depend on $d$, $s$, $\beta$, $\gamma$, $p$, on $\psi$ only through the semi-norms, but not on $x$, $r$, and $\rho$.
+
+To do, we proceed by induction on the multi-indices $\beta$, with the order $\abs{\cdot}_{\prec}$.
+Furthermore, we need to enrich our induction hypothesis.
+For $\beta$ a multi-index, let our set of hypothesis be :
+
+\begin{itemize}
+    \item Target bounds :
+    \begin{empheq}[left=\empheqlbrace]{align}
+    \E^{\frac{1}{p}} \abs{\Pi_{x\beta r}(x)}^p &\lesssim r^{\abs{\beta}}, \label{induction_plus}\\
+    \E^{\frac{1}{p}} \abs{\Pi_{x\beta r}^-(x)}^p &\lesssim r^{\abs{\beta}-2}, \label{induction_minus}\\
+    \E^{\frac{1}{p}} \abs{(\Gamma^*_x)^\gamma_\beta}^p &\lesssim x^{\abs{\beta}-\abs{\gamma}} \quad \text{for all populated }\gamma, \label{coeff}
+    \end{empheq}
+    \item Coherence bound : (the denomination will be clearer later)\begin{equation}\label{coherence}
+\begin{aligned}
+&\text{for all populated } \gamma,\quad
+\left(
+\int_{B_R} dx\,
+\mathbb{E}^{\frac{2}{q}}
+\left|
+\left(
+\mathrm{d}\Gamma_{x+y}^*
+-\mathrm{d}\Gamma_x^*\Gamma_{x\,x+y}^*
+\right)_\beta^\gamma
+\right|^q
+\right)^{\frac{1}{2}}
+\\[6pt]
+&\quad\lesssim
+\begin{cases}
+|y|^{\alpha-|\gamma|_p+\frac{D}{2}}(|y|+R)^{|\beta|-|\gamma|+|\gamma|_p-\alpha},& \text{if } \alpha-|\gamma|_p+\frac{D}{2}>0,
+\\[6pt]
+(|y|+R)^{|\beta|-|\gamma|+\frac{D}{2}},
+& \text{else}.
+\end{cases}
+\end{aligned}
+\end{equation}
+\item Estimate on coefficients:
+\begin{equation}\label{dcoeff_estimate}
+    \text{for all populated }\gamma,\quad\left(\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\dG)^\gamma_\beta}^q \right)^\frac{1}{2} \lesssim R^{\frac{D}{2}+\abs{\beta} - \abs{\gamma}}, \\
+\end{equation}
+\end{itemize}
+
+The proof relies on the spectral gap inequality :
+\begin{equation}
+        \E^{\frac{1}{p}} \abs{\Pi^-_{\beta r}(0)}^p \lesssim \abs{\E \Pi^-_{\beta r}(0)} 
+        + \sup \{\E^{\frac{1}{q}} \abs{\delta \Pi^-_{\beta r}(0)}^q ; \delta \xi \text{ random with }\E \norm{\delta \xi}^{p^*}_{\dot{H}_s} \leq 1\},
+\end{equation}
+for $1\leq q < p^* \leq 2 \leq p$.
+We will prove estimates for all $p$, $q$, $p^*$ in this range so we will be able to use the induction hypothesis with $p'\geq p$ and $p'^*>q'\geq q$ as it naturally occurs with Hölder's inequality.
+
+We claim that we can control $\abs{\E \Pi^-_{\beta r}(0)}$  when $\abs{\beta}<2$.
+We need to control the second term.
+
+
+
+
+Sketch of the reasoning :
+
+A promising strategy is to express the increments as follows:
+\begin{align*}
+    \Pi^-_{x+y\beta} - \Pi^-_{x\beta} &= ((\operatorname*{Id} - \Gamma_{x x+y}^*)\Pi^-_{x+y})_\beta \\
+    &= \sum_{\gamma} (\operatorname*{Id} - \Gamma_{x x+y}^*)^\gamma_\beta \Pi^-_{x+y\gamma} \\
+    &= - \sum_{\gamma \prec \beta} (\Gamma_{x x+y}^*)^\gamma_\beta \Pi^-_{x+y\gamma} \\
+    &= - \sum_{\substack{\gamma \prec \beta \\ \gamma \neq \text{pp}}} (\Gamma_{x x+y}^*)^\gamma_\beta \Pi^-_{x+y\gamma},
+\end{align*}
+taking advantage of the triangularity of the operator $\operatorname*{Id} - \Gamma_{x x+y}^*$ with respect to $\prec$, and the fact that $\gamma = \text{pp}\implies \Pi^-_{z\gamma} = 0$.
+As a result, we can use the induction hypothesis \eqref{induction_minus} to estimate $\Pi^-_{x+y\gamma}$.
+
+In addition, for all $z\in \R^{d}$ and $\gamma\neq \text{pp}$,
+\begin{equation}
+    (\Gamma_{z}^*)_\beta^\gamma = \sum_{k\delta_3 + \beta_1 + \dots + \beta_l = \beta} (\Gamma^*_z)_{\beta_1}^{\delta_{\mn_1}}\cdots (\Gamma^*_z)_{\beta_l}^{\delta_{\mn_l}},
+\end{equation}
+and $k\delta_3 + \beta_1 + \dots + \beta_l = \beta \implies \forall i\in \{1,\dots,l\}, \, \beta_i \prec \beta$,
+so that \eqref{coeff} is true for $\gamma\neq \text{pp}$ : 
+\begin{align*}
+    \E^{\frac{1}{p}} \abs{(\Gamma^*_z)^\gamma_\beta}^p &\lesssim \sum \E^{\frac{1}{lp}} \abs{(\Gamma^*_z)_{\beta_1}^{\delta_{\mn_1}}}^{pl} \cdots \E^{\frac{1}{lp}} \abs{(\Gamma^*_z)_{\beta_l}^{\delta_{\mn_l}}}^{pl} \\
+    &\lesssim z^{\abs{\beta_1}+\cdots+\abs{\beta_1} - \abs{\mn_1}-\cdots - \abs{\mn_l}}\\
+    &\lesssim z^{\abs{\beta}-\abs{\gamma}}.
+\end{align*}
+
+
+
+
+
+
+
+Fix $\beta \neq 0$ such that $\forall \gamma \prec \beta,$ $(P_\gamma)$ holds.
+Fix $p$, $q$ such that $1\leq q < p^* \leq 2 \leq p$.
+
+
+
+From \eqref{coherence}, we deduce that the germ $(\delta \Pi_\beta^- - (\dG \Pi_x^-)_\beta)$ is coherent. By reconstruction, we get :
+\begin{equation}
+        (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{(\delta \Pi^- - \dG \Pi_x^-)_{\beta r}(x)}^q)^\frac{1}{2} \lesssim r^{\alpha - 2 + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}. \label{reconstruction}
+\end{equation}
+By \eqref{dcoeff_estimate} and \eqref{induction_minus}, the germ $(\dG \Pi_x^-)_\beta$ is homogeneous, so we get by triangle inequality an estimate on $\delta \Pi^-$:
+\begin{equation*}
+        (\int_{B_R} \dd x \mathbb{E}^{\frac{2}{q}}\abs{\delta \Pi^-_{\beta r}(x)}^q)^\frac{1}{2} \lesssim r^{\alpha - 2 + \frac{D}{2}}(r+R)^{\abs{\beta} - \abs{\alpha}}.
+\end{equation*}
+By Sobolev's inequality, we can post-process this inequality to obtain the pointwise estimate~:
+\begin{equation}
+    \label{control_deltaPi^-}
+    \E^{\frac{1}{q}} \abs{\delta \Pi^-_{\beta r}(x)}^q \lesssim r^{\alpha - 2 - \frac{D}{2}}(r+\abs{x})^{\abs{\beta}-\alpha + \frac{D}{2}}.
+\end{equation}
+We have the spectral gap inequality :
+\begin{equation}
+        \E^{\frac{1}{p}} \abs{\Pi^-_{\beta r}(0)}^p \lesssim \abs{\E \Pi^-_{\beta r}(0)} 
+        + \sup \{\E^{\frac{1}{q}} \abs{\delta \Pi^-_{\beta r}(0)}^q ; \delta \xi \text{ random with }\E \norm{\delta \xi}^{p^*}_{\dot{H}_s} \leq 1\},
+\end{equation}
+and for $\abs{\beta}<2$, we have the control :
+$$
+\abs{\E \Pi^-_{\beta r}(0)}  \lesssim r^{\abs{\beta}-2}.
+$$
+Estimate \eqref{control_deltaPi^-} at $x=0$ with these last two estimates gives :
+\begin{equation}
+    \E^{\frac{1}{p}} \abs{\Pi_{\beta r}^-(0)}^p \lesssim r^{\abs{\beta}-2}, \\
+\end{equation}
+which generalizes to the target estimate \eqref{induction_minus} because $\Pi_x^- (\cdot + x)\overset{\mathrm{law}}{=}\Pi^-$.
+For $\abs{\beta}>2$,
+we need estimate \eqref{coeff} for $\gamma \neq $pp, which we prove by an algebraic argument
+
+
+
+
+
+By integration, we deduce target estimate \eqref{induction_plus}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
